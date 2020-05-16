@@ -12,7 +12,7 @@ import java.util.Map;
 public interface UserMapper {
     List<User> getAllUsers();
     User getUserById(int userId);
-    void addUser(User user);
+    int addUser(User user);
     int updateUser(Map<String,Object> map);
     int deleteUser(int userId);
 }
