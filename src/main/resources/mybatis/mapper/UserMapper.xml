@@ -7,8 +7,42 @@
       SELECT * from user;
    </select>
 
-    <select id="getUserById" resultType="user">
+    <select id="getUserById" resultType="int">
         select * from user where user_id = #{userId}
     </select>
+
+    <insert id="addUser" parameterType="user">
+        insert into user(user_name, user_password, user_email, user_phone, user_address, user_avatar)
+        values(#{userName},#{userPassword},#{userEmail},#{userPhone},#{userAddress},#{userAvatar})
+    </insert>
+
+    <update id="updateUser" parameterType="map">
+        update user
+        <set>
+            <if test="userName!=null">
+                user_name=#{userName},
+            </if>
+            <if test="userPassword!=null">
+                user_password=#{userPassword},
+            </if>
+            <if test="userEmail!=null">
+                user_email=#{userEmail},
+            </if>
+            <if test="userPhone!=null">
+                user_phone=#{userPhone},
+            </if>
+            <if test="userAddress!=null">
+                user_address=#{userAddress},
+            </if>
+            <if test="userAvatar!=null">
+                user_avatar=#{userAvatar}
+            </if>
+        </set>
+        where user_id=#{userId}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where user_id=#{userId}
+    </delete>
 
 </mapper>

@@ -25,10 +25,11 @@ class TradePlateformApplicationTests {
     }
 
     @Test
-    void testMybatis(){
-        List<User> userList=userMapper.getAllUsers();
-        for (User user : userList) {
-            System.out.println(user);
-        }
+    void testUser(){
+        User user=new User();
+        user.setUserName("xhf");
+        user.setUserPassword("666");
+        user.setUserEmail("xhf@hh.com");
+        userMapper.addUser(user);
     }
 }
