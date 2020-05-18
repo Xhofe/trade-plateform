@@ -3,13 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hh.mapper.LeaveMapper">
 
-    <select id="getLeaveByGoodsId" parameterType="goods_id">
+    <select id="getLeaveByGoodsId" parameterType="int">
         select *
         from `leave`
         where goods_id=#{goodsId};
     </select>
 
-    <select id="getLeaveByUserId" parameterType="goods_id">
+    <select id="getLeaveByUserId" parameterType="int">
         select *
         from `leave`
         where user_id=#{userId};
