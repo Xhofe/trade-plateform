@@ -32,7 +32,7 @@ class TradePlateformApplicationTests {
         user.setUserName("xhf");
         user.setUserPassword("666");
         user.setUserEmail("xhf@hh.com");
-        userMapper.addUser(user);
+        System.out.println(userMapper.addUser(user));
     }
 
     @Test
