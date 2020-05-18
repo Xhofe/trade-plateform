@@ -35,10 +35,10 @@ public enum ResponseStatus {
      * */
     NO_LOGIN(1001, "未登录或登陆失效！"),
     VEL_CODE_ERROR(1002, "验证码错误！"),
-    USERNAME_EXIST(1003,"该用户名已注册！"),
+    USER_EMAIL_EXIST(1003,"该邮箱已注册！"),
     USERNAME_PASS_ERROR(1004,"用户名或密码错误！"),
     TWO_PASSWORD_DIFF(1005, "两次输入的新密码不匹配!"),
-    OLD_PASSWORD_ERROR(1006, "旧密码不匹配!"),
+    OLD_PASSWORD_ERROR(1006,  "旧密码不匹配!"),
 
     /**
      * 评论相关错误

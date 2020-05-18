@@ -2,6 +2,8 @@ package com.hh;
 
 import com.hh.mapper.UserMapper;
 import com.hh.pojo.User;
+import com.hh.util.ResponseStatus;
+import com.hh.util.ResultUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,5 +45,12 @@ class TradePlateformApplicationTests {
         System.out.println(userMapper.  updateUser(user));
     }
 
+    @Test
+    void testResultUtil(){
+        System.out.println(ResultUtil.ok());
+        System.out.println(ResultUtil.ok("yes!"));
+        System.out.println(ResultUtil.fail(ResponseStatus.FORBIDDEN));
+        System.out.println(ResultUtil.error());
+    }
     //test user servic
 }

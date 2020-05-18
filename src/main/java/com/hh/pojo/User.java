@@ -17,13 +17,4 @@ public class User {
     private String userPhone;
     private String userAddress;
     private String userAvatar;
-
-    public User(String userName, String userPassword, String userEmail, String userPhone, String userAddress, String userAvatar) {
-        this.userName = userName;
-        this.userPassword = userPassword;
-        this.userEmail = userEmail;
-        this.userPhone = userPhone;
-        this.userAddress = userAddress;
-        this.userAvatar = userAvatar;
-    }
 }
