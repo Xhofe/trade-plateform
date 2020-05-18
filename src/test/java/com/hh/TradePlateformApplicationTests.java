@@ -42,4 +42,6 @@ class TradePlateformApplicationTests {
         user.setUserPassword("666hh");
         System.out.println(userMapper.updateUser(user));
     }
+
+    //test user servic
 }
