@@ -37,13 +37,9 @@ class TradePlateformApplicationTests {
 
     @Test
     void testUpdateUser(){
-//        Map<String,Object> map=new HashMap<>();
-//        map.put("userId",1);
-//        map.put("userName","lggqii");
-//        System.out.println(userMapper.updateUser(map));
         User user=new User();
         user.setUserId(5);
-        user.setUserPassword("666hhh");
+        user.setUserPassword("666hh");
         System.out.println(userMapper.updateUser(user));
     }
 }
