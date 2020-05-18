@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hh.mapper.LeaveMapper">
+
+    <select id="getLeaveByGoodsId" parameterType="goods_id">
+        select *
+        from `leave`
+        where goods_id=#{goodsId};
+    </select>
+
+    <select id="getLeaveByUserId" parameterType="goods_id">
+        select *
+        from `leave`
+        where user_id=#{userId};
+    </select>
+
+    <insert id="addLeave" parameterType="leave">
+        insert into `leave` (user_id, goods_id, leave_message, leave_time)
+        values (#{userId},#{goodsId},#{leaveMessage},#{leaveTime});
+    </insert>
+
+    <delete id="deleteLeave" parameterType="int">
+        delete from `leave`
+        where leave_id=#{leaveId};
+    </delete>
+
+</mapper>

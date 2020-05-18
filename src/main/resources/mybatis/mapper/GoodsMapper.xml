@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hh.mapper.GoodsMapper">
+
+    <select id="getAllGoods" resultType="goods">
+        select *
+        from goods;
+    </select>
+
+    <select id="SearchGoods" resultType="goods">
+#         TODO
+    </select>
+
+    <insert id="addGoods" parameterType="goods">
+        insert into goods (goods_name, pop, price, second_price, user_id, introduce, status, type, imgurl)
+        values (#{goodsName},#{pop},#{price},#{secondPrice},#{userId},#{introduce},#{status},#{type},#{imgurl});
+    </insert>
+
+    <update id="updateGoods" parameterType="goods">
+        update goods
+        <set>
+            <if test="goodsName!=null">
+                goods_name=#{goodsName},
+            </if>
+            <if test="pop!=null">
+                pop=#{pop},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="secondPrice!=null">
+                sencond_price=#{secondPrice},
+            </if>
+            <if test="userId!=null">
+                user_id=#{userId},
+            </if>
+            <if test="introduce!=null">
+                introduce=#{introduce},
+            </if>
+            <if test="status!=null">
+                status=#{status},
+            </if>
+            <if test="type!=null">
+                type=#{type},
+            </if>
+            <if test="imgurl!=null">
+                imgurl=#{imgurl}
+            </if>
+        </set>
+        where goods_id=#{GoodsId};
+    </update>
+
+    <delete id="deleteGoods" parameterType="int">
+        delete  from goods
+        where goods_id=#{GoodsId};
+    </delete>
+
+</mapper>

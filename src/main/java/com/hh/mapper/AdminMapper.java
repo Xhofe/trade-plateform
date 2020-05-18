@@ -14,5 +14,5 @@ public interface AdminMapper {
     Admin getAdminById(int id);
     int addAdmin(Admin admin);
     int deleteAdmin(int id);
-    int updateAdmin(Map map);
+    int updateAdmin(Admin admin);
 }

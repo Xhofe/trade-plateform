@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hh.mapper.GoodsCommentsMapper">
+
+    <select id="getCommentsByGoodsId" resultType="GoodsComments">
+        select *
+        from goods_comments
+        where goods_id=#{goodsId};
+    </select>
+
+    <insert id="addGoodsComments" parameterType="GoodsComments">
+        insert into goods_comments (user_id, goods_id, comment, time)
+        values (#{userId},#{goodsId},#{comment},#{time});
+    </insert>
+
+    <delete id="deleteGoodsComments" parameterType="int">
+        delete from goods_comments
+        where id=#{id};
+    </delete>
+
+</mapper>
