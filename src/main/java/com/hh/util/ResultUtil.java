@@ -1,10 +1,12 @@
 package com.hh.util;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @Data
+@ToString
 public class ResultUtil<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
