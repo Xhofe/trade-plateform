@@ -1,6 +1,7 @@
 package com.hh.Controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.hh.Service.UserService;
 import com.hh.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,14 @@ public class UserController {
 
     @PostMapping("/addUser")
     public Object addUser(@RequestBody User user){
-        System.out.println(user);
-        return userService.addUser(user);
+        JSONObject jsonObject = new JSONObject();
+
+        if(userService.addUser(user) == 1){
+            jsonObject.put("msg",1);
+        }
+        else{
+            jsonObject.put("msg",0);
+        }
+        return jsonObject.toJSONString();
     }
 }

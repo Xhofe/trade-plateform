@@ -6,6 +6,8 @@ import com.hh.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private UserMapper userMapper;
@@ -15,8 +17,15 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public User addUser(User user){
-        userMapper.addUser(user);
-        return user;
+    public int addUser(User user){
+        //是否存在userName
+        List<User> userList = userMapper.findUserName(user.getUserName());
+        if(userList.size() == 0){
+            userMapper.addUser(user);
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 }
