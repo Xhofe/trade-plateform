@@ -33,4 +33,16 @@ public class UserController {
         }
         return jsonObject.toJSONString();
     }
+
+    @PostMapping("/updateUser")
+    public Object updateUser(@RequestBody User user){
+        JSONObject jsonObject = new JSONObject();
+
+        if(userService.updateUser(user) ==1)
+            jsonObject.put("msg",1);
+        else
+            jsonObject.put("msg",0);
+
+        return jsonObject.toJSONString();
+    }
 }

@@ -28,4 +28,8 @@ public class UserService {
             return 0;
         }
     }
+
+    public int updateUser(User user){
+        return userMapper.updateUser(user);
+    }
 }
