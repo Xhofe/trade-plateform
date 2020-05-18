@@ -3,5 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hh.mapper.OrderMapper">
 
+    <select id="getOrdersByUserId" parameterType="int">
+        select *
+        from `order`
+        where buy_user_id=#{userId};
+    </select>
+
+    <insert id="addOrder" parameterType="order">
+        insert into `order` (goods_id, buy_user_id, name, address, time, cost)
+        values (#{goodsId},#{buyUserId},#{name},#{address},#{time},#{cost});
+    </insert>
+
+    <delete id="deleteOrder" parameterType="int">
+        delete from `order`
+        where order_id=#{orderId};
+    </delete>
 
 </mapper>
