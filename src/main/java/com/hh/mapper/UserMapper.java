@@ -13,6 +13,10 @@ public interface UserMapper {
     List<User> getAllUsers();
     User getUserById(int userId);
     int addUser(User user);
+
+    //是否已存在name
+    List<User> findUserName(String userName);
+
 //    int updateUser(Map<String,Object> map);
     int updateUser(User user);
     int deleteUser(int userId);
