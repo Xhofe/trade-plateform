@@ -8,6 +8,14 @@ spring:
     password: KCTjeK8TBnDw2b2N
   profiles:
     active: default
+  mail:
+    host: smtp.qq.com
+    password: llhenytkalabbbhi
+    username: 709124735@qq.com
+    properties:
+      mail.smtp.socketFactory.fallback: true
+      mail.smtp.starttls.enable: trye
+      mail.smtp.ssl.enable: true
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
