@@ -7,7 +7,7 @@
       SELECT * from user;
    </select>
 
-    <select id="getUserById" resultType="int">
+    <select id="getUserById" resultType="user" parameterType="int">
         select * from user where user_id = #{userId}
     </select>
 
@@ -16,7 +16,7 @@
         values(#{userName},#{userPassword},#{userEmail},#{userPhone},#{userAddress},#{userAvatar})
     </insert>
 
-    <update id="updateUser" parameterType="map">
+    <update id="updateUser" parameterType="user">
         update user
         <set>
             <if test="userName!=null">

@@ -13,6 +13,7 @@ public interface UserMapper {
     List<User> getAllUsers();
     User getUserById(int userId);
     int addUser(User user);
-    int updateUser(Map<String,Object> map);
+//    int updateUser(Map<String,Object> map);
+    int updateUser(User user);
     int deleteUser(int userId);
 }

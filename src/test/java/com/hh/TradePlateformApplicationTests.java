@@ -8,7 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class TradePlateformApplicationTests {
@@ -31,5 +33,17 @@ class TradePlateformApplicationTests {
         user.setUserPassword("666");
         user.setUserEmail("xhf@hh.com");
         userMapper.addUser(user);
+    }
+
+    @Test
+    void testUpdateUser(){
+//        Map<String,Object> map=new HashMap<>();
+//        map.put("userId",1);
+//        map.put("userName","lggqii");
+//        System.out.println(userMapper.updateUser(map));
+        User user=new User();
+        user.setUserId(5);
+        user.setUserPassword("666hhh");
+        System.out.println(userMapper.updateUser(user));
     }
 }

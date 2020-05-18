@@ -12,5 +12,5 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mybatis/mapper/*.xml
-  # type-aliases-package: com.hh.pojo
-  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.hh.pojo
+#  config-location: classpath:mybatis/mybatis-config.xml
