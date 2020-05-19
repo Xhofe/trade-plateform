@@ -37,6 +37,13 @@ public interface UserMapper {
      */
     List<User> findUserName(String userName);
 
+    /**
+     * 根据邮箱获取用户列表
+     * @param userEmail 名字
+     * @return 用户列表
+     */
+    List<User> findUserEmail(String userEmail);
+
 //    int updateUser(Map<String,Object> map);
 
     /**

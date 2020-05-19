@@ -15,6 +15,10 @@
         select * from user where user_name = #{userName}
     </select>
 
+    <select id="findUserEmail" resultType="user" parameterType="string">
+        select * from user where user_email = #{userEmail}
+    </select>
+
     <insert id="addUser" parameterType="user">
         insert into user(user_name, user_password, user_email, user_phone, user_address, user_avatar)
         values(#{userName},#{userPassword},#{userEmail},#{userPhone},#{userAddress},#{userAvatar})
