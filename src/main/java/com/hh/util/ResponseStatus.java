@@ -39,12 +39,17 @@ public enum ResponseStatus {
     USERNAME_PASS_ERROR(1004,"用户名或密码错误！"),
     TWO_PASSWORD_DIFF(1005, "两次输入的新密码不匹配!"),
     OLD_PASSWORD_ERROR(1006,  "旧密码不匹配!"),
+    NO_CODE(1007,"先获取验证码!"),
 
     /**
      * 评论相关错误
      * */
     HAS_COMMENTS(3001, "已评价过该商品！"),
 
+    /**
+     * 文件错误
+     */
+    IMG_UPLOAD_FAIL(4001,"图片上传失败"),
 
     /**
      * 其他通用错误

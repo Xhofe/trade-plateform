@@ -21,4 +21,16 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.hh.pojo
+logging:
+  file:
+    path: log
+  level:
+    root: info
 #  config-location: classpath:mybatis/mybatis-config.xml
+jwt:
+  secret: trade-plateform
+  expiration: 604800
+
+file:
+  img:
+    path: /trade-plateform-img/

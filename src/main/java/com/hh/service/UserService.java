@@ -1,35 +1,16 @@
 package com.hh.Service;
 
 
-import com.hh.mapper.UserMapper;
 import com.hh.pojo.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.hh.pojo.UserDetails;
 
-import java.util.List;
+public interface UserService {
 
-@Service
-public class UserService {
-    private UserMapper userMapper;
+    public UserDetails login(User user);
 
-    @Autowired
-    public UserService(UserMapper userMapper){
-        this.userMapper = userMapper;
-    }
+    public int addUser(User user);
 
-    public int addUser(User user){
-        //是否存在userName
-        List<User> userList = userMapper.findUserName(user.getUserName());
-        if(userList.size() == 0){
-            userMapper.addUser(user);
-            return 1;
-        }
-        else{
-            return 0;
-        }
-    }
+    public boolean exitsUser(String email);
 
-    public int updateUser(User user){
-        return userMapper.updateUser(user);
-    }
+    public int updateUser(User user);
 }
