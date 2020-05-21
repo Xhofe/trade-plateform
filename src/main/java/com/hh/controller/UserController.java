@@ -1,8 +1,8 @@
-package com.hh.controller;
+package com.hh.Controller;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.hh.service.UserService;
+import com.hh.Service.UserService;
 import com.hh.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
