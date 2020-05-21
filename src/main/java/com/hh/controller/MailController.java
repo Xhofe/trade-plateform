@@ -1,13 +1,9 @@
-package com.hh.Controller;
+package com.hh.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.hh.Service.MailService;
-import com.sun.org.apache.bcel.internal.classfile.Code;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hh.service.MailService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import sun.util.resources.cldr.aa.CalendarData_aa_ER;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -37,7 +33,7 @@ public class MailController {
             String md5 = new BigInteger(1,md.digest()).toString(16);
 
             String message = "您的注册验证码为："+ md5;
-            mailService.sendMail(email,"注册验证码",message);
+            mailService.sendSimpleMail(email,"注册验证码",message);
         }catch (Exception e){
             e.printStackTrace();
         }
