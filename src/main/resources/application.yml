@@ -30,3 +30,7 @@ logging:
 jwt:
   secret: trade-plateform
   expiration: 604800
+
+file:
+  img:
+    path: /trade-plateform-img/

@@ -46,6 +46,10 @@ public enum ResponseStatus {
      * */
     HAS_COMMENTS(3001, "已评价过该商品！"),
 
+    /**
+     * 文件错误
+     */
+    IMG_UPLOAD_FAIL(4001,"图片上传失败"),
 
     /**
      * 其他通用错误

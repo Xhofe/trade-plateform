@@ -43,10 +43,8 @@ public class UserController extends BaseController{
      */
     @PostMapping("login")
     public Object login(@RequestBody User user, HttpServletResponse response) {
-
         //登陆
         UserDetails userDetails = userService.login(user);
-
 //        Map<String, Object> data = new HashMap<>(1);
 //        data.put("token", jwtTokenUtil.generateToken(userDetails));
 //        response.addCookie(new Cookie("Authorization",jwtTokenUtil.generateToken(userDetails)));
