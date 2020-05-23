@@ -53,8 +53,16 @@ public class ReleaseGoodsController extends BaseController {
             }
             int userId = userDetails.getUserId();
             goods.setUserId(userId);
-            goodsService.updateGood(goods);
-            return ResultUtil.ok();
+
+            if(goodsService.haveGoods(userId,goods.getGoodsId())){
+                if(goodsService.updateGood(goods) == 1)
+                    return ResultUtil.ok();
+                else
+                    return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+            }
+            else
+                return ResultUtil.fail(ResponseStatus.FORBIDDEN);
+
         }catch (Exception e){
             return ResultUtil.error();
         }
@@ -69,8 +77,15 @@ public class ReleaseGoodsController extends BaseController {
             }
             int userId = userDetails.getUserId();
             goods.setUserId(userId);
-            goodsService.deleteGood(goods.getGoodsId());
-            return ResultUtil.ok();
+
+            if(goodsService.haveGoods(userId,goods.getGoodsId())){
+                if(goodsService.deleteGood(goods.getGoodsId()) == 1)
+                    return ResultUtil.ok();
+                else
+                    return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+            }
+            else
+                return ResultUtil.fail(ResponseStatus.FORBIDDEN);
         }catch (Exception e){
             return ResultUtil.error();
         }
