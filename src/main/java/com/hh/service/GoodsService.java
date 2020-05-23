@@ -5,6 +5,9 @@ import com.hh.pojo.Type;
 
 import java.util.List;
 
+import java.util.List;
+import java.util.Map;
+
 public interface GoodsService {
     //添加
     public int addGood(Goods goods);
@@ -28,4 +31,6 @@ public interface GoodsService {
      * @return 分类
      */
     public List<Type> getAllType();
+
+    public List<Goods> searchGoods(Map map);
 }

@@ -1,6 +1,9 @@
 package com.hh.controller.GoodsController;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.hh.controller.BaseController;
 import com.hh.pojo.Goods;
 import com.hh.pojo.UserDetails;
@@ -14,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/goods")
@@ -89,6 +97,36 @@ public class ReleaseGoodsController extends BaseController {
             }
             else
                 return ResultUtil.fail(ResponseStatus.FORBIDDEN);
+        }catch (Exception e){
+            return ResultUtil.error();
+        }
+    }
+
+    @PostMapping("/searchGoods")
+    public Object searchGoods(@RequestBody JSONObject jsonObject, HttpServletRequest request){
+        try {
+            UserDetails userDetails = getUserDetails(request);
+            if(userDetails==null)
+                return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+            int userId = userDetails.getUserId();
+            Map map = new HashMap();
+
+            JSONArray jsonArray = jsonObject.getJSONArray("keywords");
+            List<String> keywords = JSONObject.parseArray(jsonArray.toJSONString(),String.class);
+
+            map.put("keywords",keywords);
+            map.put("typeId",jsonObject.getIntValue("typeId"));
+            map.put("priceLow",jsonObject.getDoubleValue("priceLow"));
+            map.put("priceHigh",jsonObject.getDoubleValue("priceHigh"));
+            map.put("secondPriceLow",jsonObject.getDoubleValue("secondPriceLow"));
+            map.put("secondPriceHigh",jsonObject.getDoubleValue("secondPriceHigh"));
+
+            List<Goods> goods = goodsService.searchGoods(map);
+            if(goods.size() != 0){
+                return goods;
+            }
+            else
+                return ResultUtil.fail(ResponseStatus.NO_GOODS);
         }catch (Exception e){
             return ResultUtil.error();
         }

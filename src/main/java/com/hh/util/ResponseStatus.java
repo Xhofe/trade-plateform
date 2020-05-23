@@ -29,6 +29,10 @@ public enum ResponseStatus {
      * */
     FORBIDDEN(403,"拒绝访问！"),
 
+    /**
+     * 商品相关错误
+     */
+    NO_GOODS(600,"没有s商品"),
 
     /**
      * 用户相关错误

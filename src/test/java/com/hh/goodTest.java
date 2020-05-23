@@ -57,8 +57,13 @@ public class goodTest {
     void testSearchGoods(){
         Map map = new HashMap();
         List<String> list = new ArrayList<>();
-        list.add("1");
+        list.add("测试");
+        //list.add("商品");
         map.put("keywords",list);
+        //map.put("keywords","测试商品改");
+        map.put("typeId",1);
+        map.put("priceLow",800);
+        map.put("priceHigh",1000);
         System.out.println(goodsMapper.SearchGoods(map));
     }
 }

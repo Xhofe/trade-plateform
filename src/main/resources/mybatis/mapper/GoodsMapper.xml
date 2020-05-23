@@ -13,10 +13,20 @@
 <!--        select * from goods-->
 <!--        where goods_name like #{pattern}-->
         select * from goods
-        where goods_name = '测试商品1'
-<!--        <foreach collection ="keywords" index="index" item = "item" separator="OR">-->
-<!--            'goods_name' like '%'+#{item}+'%'-->
-<!--        </foreach>-->
+        where 1 = 1
+        and
+        <foreach collection="keywords" item="item" separator="OR">
+            goods_name like CONCAT('%',#{item},'%')
+        </foreach>
+        <if test="typeId!=null">
+            and type_id = #{typeId}
+        </if>
+        <if test="priceLow!=null and priceHigh!=null">
+            and price between #{priceLow} and #{priceHigh}
+        </if>
+        <if test="secondPriceLow!=null and secondPriceHigh!=null">
+            and second_price between #{secondPriceLow} and #{secondPriceHigh}
+        </if>
     </select>
 
     <insert id="addGoods" parameterType="goods">
