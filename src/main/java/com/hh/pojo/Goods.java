@@ -19,6 +19,6 @@ public class Goods {
   private int userId;
   private String introduce;
   private int status;
-  private String type;
+  private int typeId;
   private String imgurl;
 }
