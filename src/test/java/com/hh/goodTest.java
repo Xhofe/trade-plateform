@@ -41,7 +41,7 @@ public class goodTest {
         good.setUserId(1);
         good.setIntroduce("测试商品描述");
         good.setStatus(1);
-        good.setType("测试商品类型");
+        good.setTypeId(1);
         good.setImgurl("/img/url");
         System.out.println(goodsMapper.updateGoods(good));
 
