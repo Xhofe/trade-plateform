@@ -1,24 +1,18 @@
 package com.hh.controller.GoodsController;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hh.controller.BaseController;
 import com.hh.pojo.Goods;
 import com.hh.pojo.UserDetails;
 import com.hh.service.GoodsService;
-import com.hh.util.CookieUtil;
 import com.hh.util.ResponseStatus;
 import com.hh.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +117,7 @@ public class ReleaseGoodsController extends BaseController {
 
             List<Goods> goods = goodsService.searchGoods(map);
             if(goods.size() != 0){
-                return goods;
+                return ResultUtil.ok(goods);
             }
             else
                 return ResultUtil.fail(ResponseStatus.NO_GOODS);
