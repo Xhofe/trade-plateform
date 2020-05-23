@@ -21,26 +21,37 @@
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-username iphone-icon"></i>
-                                <input type="text" name="username" placeholder="请输入用户名" class="layui-input">
+                                <input type="text" name="userName" placeholder="请输入用户名" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline iphone">
+                            <div class="layui-input-inline">
+                                <i class="layui-icon layui-icon-email iphone-icon"></i>
+                                <input type="text" name="userEmail" placeholder="请输入邮箱" class="layui-input" id="email">
                             </div>
                         </div>
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-cellphone iphone-icon"></i>
-                                <input type="password" name="password" placeholder="请输入密码" class="layui-input">
+                                <input type="password" name="userPassword" placeholder="请输入密码" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline veri-code">
                             <div class="layui-input-inline">
                                 <div class="layui-input-inline">
-                                    <input type="text" name="key" id="key" hidden>
-                                    <input type="text" name="code" placeholder="请输入验证码" class="layui-input">
-                                    <img id="captcha">
+                                    <input type="text" name="code" placeholder="请输入验证码" class="layui-input" id="code">
+<!--                                    <button class="layui-btn" lay-submit lay-filter="checkCode">验证</button>-->
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="layui-form-item login-btn">
+                        <div class="layui-input-inline">
+                            <button type="button" class="layui-btn" id="getCode">获取</button>
+                            <button type="button" class="layui-btn" id="checkCode">验证</button>
+                        </div>
+                        <br>
                         <div class="layui-input-block">
                             <button class="layui-btn" lay-submit lay-filter="register">注册</button>
                         </div>
@@ -55,24 +66,28 @@
     layui.use(['jquery', 'element', 'form'], function () {
         var $ = layui.jquery, form = layui.form;
 
-        $.get('captcha', function (res) {
-            $('#key').val(res.data.key);
-            $('#captcha').attr('src', res.data.image);
+        $('#getCode').click(function () {
+            let email=$('#email').val();
+            $.post('api/user/getCode',JSON.stringify({"email":email}),function (res) {
+                layer.msg(res.msg);
+            })
         });
 
-        $('#captcha').click(function () {
-            $.get('captcha', function (res) {
-                $('#key').val(res.data.key);
-                $('#captcha').attr('src', res.data.image);
-            });
+        $('#checkCode').click(function () {
+            let code=$('#code').val();
+            $.post('api/user/checkCode',JSON.stringify({"code":code}),function (res) {
+                layer.msg(res.msg);
+            })
         });
 
         form.on('submit(register)', function (data) {
-            $.post('register', data.field, function (res) {
-                if (res.code === 0) {
+            $.post('api/user/register', JSON.stringify(data.field), function (res) {
+                if (res.code === 200) {
                     layer.msg(res.msg, {time: 1000}, function () {
                         window.location.href = 'login.html';
                     });
+                }else {
+                    layer.msg(res.msg);
                 }
             });
             return false; // require

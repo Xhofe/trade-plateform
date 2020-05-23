@@ -76,6 +76,7 @@ public class UserController extends BaseController{
         String code= CodeUtil.randomCode();
         mailService.sendSimpleMail(email,"trade-plateform验证码",code);
         session.setAttribute("code",code);
+//        log.info(code);
         return ResultUtil.ok();
     }
 
@@ -96,9 +97,10 @@ public class UserController extends BaseController{
         return ResultUtil.ok();
     }
 
-    @PostMapping("/registry")
+    @PostMapping("/register")
     public Object addUser(@RequestBody User user,HttpSession session){
-        if (session.getAttribute("code")==null){
+        String code= (String) session.getAttribute("code");
+        if (code==null||!code.equals("ok")){
             return ResultUtil.fail(ResponseStatus.NO_CODE);
         }
         if (userService.addUser(user)!=1){
