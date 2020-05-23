@@ -6,6 +6,7 @@ import com.hh.pojo.Goods;
 import com.hh.pojo.UserDetails;
 import com.hh.service.GoodsService;
 import com.hh.util.CookieUtil;
+import com.hh.util.ResponseStatus;
 import com.hh.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +31,10 @@ public class ReleaseGoodsController extends BaseController {
     @PostMapping("/addGoods")
     public Object addGoods(@RequestBody Goods goods, HttpServletRequest request){
         try {
-            String token = CookieUtil.getCookie(request,"Authorization");
-            UserDetails userDetails = jwtTokenUtil.getUserDetailsFromToken(token);
+            UserDetails userDetails = getUserDetails(request);
+            if (userDetails == null) {
+                return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+            }
             int userId = userDetails.getUserId();
             goods.setUserId(userId);
             goodsService.addGood(goods);
@@ -44,8 +47,10 @@ public class ReleaseGoodsController extends BaseController {
     @PostMapping("/updateGoods")
     public Object updateGoods(@RequestBody Goods goods,HttpServletRequest request){
         try {
-            String token = CookieUtil.getCookie(request,"Authorization");
-            UserDetails userDetails = jwtTokenUtil.getUserDetailsFromToken(token);
+            UserDetails userDetails = getUserDetails(request);
+            if (userDetails == null) {
+                return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+            }
             int userId = userDetails.getUserId();
             goods.setUserId(userId);
             goodsService.updateGood(goods);
@@ -58,8 +63,10 @@ public class ReleaseGoodsController extends BaseController {
     @PostMapping("/deleteGoods")
     public Object deleteGoods(@RequestBody Goods goods,HttpServletRequest request){
         try {
-            String token = CookieUtil.getCookie(request,"Authorization");
-            UserDetails userDetails = jwtTokenUtil.getUserDetailsFromToken(token);
+            UserDetails userDetails = getUserDetails(request);
+            if (userDetails == null) {
+                return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+            }
             int userId = userDetails.getUserId();
             goods.setUserId(userId);
             goodsService.deleteGood(goods.getGoodsId());
@@ -68,6 +75,4 @@ public class ReleaseGoodsController extends BaseController {
             return ResultUtil.error();
         }
     }
-
-
 }
