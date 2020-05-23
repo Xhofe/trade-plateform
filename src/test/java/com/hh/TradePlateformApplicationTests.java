@@ -5,8 +5,11 @@ import com.hh.pojo.User;
 import com.hh.util.ResponseStatus;
 import com.hh.util.ResultUtil;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -25,7 +28,7 @@ class TradePlateformApplicationTests {
 
     @Test
     void contextLoads() throws SQLException {
-        System.out.println(dataSource.getConnection());
+        System.out.println(dataSource.getConnection()) ;
     }
 
     @Test

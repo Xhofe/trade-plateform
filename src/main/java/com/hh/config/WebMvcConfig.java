@@ -7,18 +7,18 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-@Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
-    @Value("${file.img.path}")
-    private String IMG_PATH;
-
-    /**
-     * 图片ResourceHandler
-     * @param registry ResourceHandlerRegistry
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String imgPath="file:"+PathUtil.getRootPath()+IMG_PATH;
-        registry.addResourceHandler("img//**").addResourceLocations(imgPath);
-    }
-}
+//@Configuration
+//public class WebMvcConfig implements WebMvcConfigurer {
+//    @Value("${file.img.path}")
+//    private String IMG_PATH;
+//
+//    /**
+//     * 图片ResourceHandler
+//     * @param registry ResourceHandlerRegistry
+//     */
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        String imgPath="file:"+PathUtil.getRootPath()+IMG_PATH;
+//        registry.addResourceHandler("img//**").addResourceLocations(imgPath);
+//    }
+//}

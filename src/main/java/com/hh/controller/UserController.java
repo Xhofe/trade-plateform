@@ -11,6 +11,7 @@ import com.hh.util.CookieUtil;
 import com.hh.util.ResponseStatus;
 import com.hh.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,13 +43,14 @@ public class UserController extends BaseController{
      * 登陆
      */
     @PostMapping("login")
-    public Object login(@RequestBody User user, HttpServletResponse response) {
+    public Object login(@RequestBody User user, HttpServletResponse response, HttpServletRequest request) {
         //登陆
         UserDetails userDetails = userService.login(user);
 //        Map<String, Object> data = new HashMap<>(1);
 //        data.put("token", jwtTokenUtil.generateToken(userDetails));
 //        response.addCookie(new Cookie("Authorization",jwtTokenUtil.generateToken(userDetails)));
         CookieUtil.setCookie(response,"Authorization",jwtTokenUtil.generateToken(userDetails));
+        //String temp = jwtTokenUtil.generateToken(userDetails);
         return ResultUtil.ok();
     }
 
