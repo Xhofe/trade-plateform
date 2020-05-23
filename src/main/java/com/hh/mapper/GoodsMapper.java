@@ -17,6 +17,20 @@ public interface GoodsMapper {
     List<Goods> getAllGoods();
 
     /**
+     * 根据用户Id获取商品
+     * @param userId 用户ID
+     * @return 该用户的商品
+     */
+    List<Goods> getGoodsByUserId(int userId);
+
+    /**
+     * 根据GoodsId获取goods
+     * @param goodsId 商品ID
+     * @return 商品
+     */
+    Goods getGoodsByGoodsId(int goodsId);
+
+    /**
      * 根据条件搜索物品
      * @param map 条件键值对
      * @return 物品列表

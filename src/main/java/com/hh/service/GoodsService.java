@@ -11,4 +11,12 @@ public interface GoodsService {
 
     //删除
     public int deleteGood(int goodsId);
+
+    /**
+     * 判断用户是否拥有此商品
+     * @param userId 用户ID
+     * @param goodsId 商品ID
+     * @return 拥有?
+     */
+    public boolean haveGoods(int userId,int goodsId);
 }

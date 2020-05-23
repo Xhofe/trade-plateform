@@ -15,8 +15,8 @@ public class goodTest {
     @Test
     void testAddGood(){
         Goods good = new Goods();
-        good.setGoodsId(1);
-        good.setGoodsName("测试商品1");
+//        good.setGoodsId(1);
+        good.setGoodsName("测试商品2");
         good.setPop(1);
         good.setPrice(999);
         good.setSecondPrice(899);
