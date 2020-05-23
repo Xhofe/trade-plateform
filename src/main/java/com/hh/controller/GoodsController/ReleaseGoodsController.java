@@ -43,7 +43,7 @@ public class ReleaseGoodsController extends BaseController {
             int userId = userDetails.getUserId();
             goods.setUserId(userId);
             goodsService.addGood(goods);
-            return ResultUtil.ok();
+            return ResultUtil.ok(goods);
         }catch (Exception e){
             return ResultUtil.error();
         }
@@ -61,7 +61,7 @@ public class ReleaseGoodsController extends BaseController {
 
             if(goodsService.haveGoods(userId,goods.getGoodsId())){
                 if(goodsService.updateGood(goods) == 1)
-                    return ResultUtil.ok();
+                    return ResultUtil.ok(goods);
                 else
                     return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
             }
@@ -85,7 +85,7 @@ public class ReleaseGoodsController extends BaseController {
 
             if(goodsService.haveGoods(userId,goods.getGoodsId())){
                 if(goodsService.deleteGood(goods.getGoodsId()) == 1)
-                    return ResultUtil.ok();
+                    return ResultUtil.ok(goods);
                 else
                     return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
             }
