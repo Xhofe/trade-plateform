@@ -8,20 +8,15 @@
         from goods;
     </select>
 
-    <select id="getGoodsByUserId" resultType="goods" parameterType="int">
-        select *
-        from goods
-        where user_id=#{userId};
-    </select>
-
-    <select id="getGoodsByGoodsId" resultType="goods" parameterType="int">
-        select *
-        from goods
-        where goods_id=#{goodsId};
-    </select>
-
-    <select id="SearchGoods" resultType="goods">
-#         TODO
+    <select id="SearchGoods" parameterType="map" resultType="goods">
+<!--        <bind name="pattern" value="'%'+keyword+'%'"/>-->
+<!--        select * from goods-->
+<!--        where goods_name like #{pattern}-->
+        select * from goods
+        where goods_name = '测试商品1'
+<!--        <foreach collection ="keywords" index="index" item = "item" separator="OR">-->
+<!--            'goods_name' like '%'+#{item}+'%'-->
+<!--        </foreach>-->
     </select>
 
     <insert id="addGoods" parameterType="goods">
@@ -42,7 +37,7 @@
                 price=#{price},
             </if>
             <if test="secondPrice!=null">
-                sencond_price=#{secondPrice},
+                second_price=#{secondPrice},
             </if>
             <if test="userId!=null">
                 user_id=#{userId},
@@ -60,12 +55,24 @@
                 imgurl=#{imgurl}
             </if>
         </set>
-        where goods_id=#{GoodsId};
+        where goods_id=#{goodsId};
     </update>
 
     <delete id="deleteGoods" parameterType="int">
         delete  from goods
-        where goods_id=#{GoodsId};
+        where goods_id=#{goodsId};
     </delete>
+
+    <select id="getGoodsByUserId" resultType="goods" parameterType="int">
+        select *
+        from goods
+        where user_id=#{userId};
+    </select>
+
+    <select id="getGoodsByGoodsId" resultType="goods" parameterType="int">
+        select *
+        from goods
+        where goods_id=#{goodsId};
+    </select>
 
 </mapper>
