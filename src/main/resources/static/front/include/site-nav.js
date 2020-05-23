@@ -1,5 +1,5 @@
 function ok() {
-    return layui.data('token').Authorization !== undefined && layui.data('user').info !== undefined;
+    return layui.data('token').Authorization !== undefined || layui.data('user').info !== undefined;
 }
 
 function logout() {

@@ -2,9 +2,12 @@ package com.hh.service.impl;
 
 import com.hh.mapper.GoodsMapper;
 import com.hh.pojo.Goods;
+import com.hh.pojo.Type;
 import com.hh.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -35,5 +38,10 @@ public class GoodsServiceImpl implements GoodsService {
     public boolean haveGoods(int userId, int goodsId) {
         Goods goods=goodsMapper.getGoodsByGoodsId(goodsId);
         return goods.getUserId()==userId;
+    }
+
+    @Override
+    public List<Type> getAllType() {
+        return goodsMapper.getAllType();
     }
 }

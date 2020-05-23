@@ -1,6 +1,9 @@
 package com.hh.service;
 
 import com.hh.pojo.Goods;
+import com.hh.pojo.Type;
+
+import java.util.List;
 
 public interface GoodsService {
     //添加
@@ -19,4 +22,10 @@ public interface GoodsService {
      * @return 拥有?
      */
     public boolean haveGoods(int userId,int goodsId);
+
+    /**
+     * 获取所有分类
+     * @return 分类
+     */
+    public List<Type> getAllType();
 }

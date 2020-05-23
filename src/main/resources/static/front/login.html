@@ -21,24 +21,24 @@
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-username iphone-icon"></i>
-                                <input type="text" name="username" placeholder="请输入用户名" class="layui-input">
+                                <input type="text" name="userEmail" placeholder="请输入Email" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline iphone">
                             <div class="layui-input-inline">
                                 <i class="layui-icon layui-icon-password iphone-icon"></i>
-                                <input type="password" name="password" placeholder="请输入密码" class="layui-input">
+                                <input type="password" name="userPassword" placeholder="请输入密码" class="layui-input">
                             </div>
                         </div>
-                        <div class="layui-inline veri-code">
-                            <div class="layui-input-inline">
-                                <div class="layui-input-inline">
-                                    <input type="text" name="key" id="key" hidden>
-                                    <input type="text" name="code" placeholder="请输入验证码" class="layui-input">
-                                    <img id="captcha">
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="layui-inline veri-code">-->
+<!--                            <div class="layui-input-inline">-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" name="key" id="key" hidden>-->
+<!--                                    <input type="text" name="code" placeholder="请输入验证码" class="layui-input">-->
+<!--                                    <img id="captcha">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                     <div class="layui-form-item login-btn">
                         <div class="layui-input-block">
@@ -55,27 +55,29 @@
     layui.use(['jquery', 'element', 'form'], function () {
         var $ = layui.jquery, form = layui.form;
 
-        $.get('captcha', function (res) {
-            $('#key').val(res.data.key);
-            $('#captcha').attr('src', res.data.image);
-        });
+        // $.get('captcha', function (res) {
+        //     $('#key').val(res.data.key);
+        //     $('#captcha').attr('src', res.data.image);
+        // });
 
-        $('#captcha').click(function () {
-            $.get('captcha', function (res) {
-                $('#key').val(res.data.key);
-                $('#captcha').attr('src', res.data.image);
-            });
-        });
+        // $('#captcha').click(function () {
+        //     $.get('captcha', function (res) {
+        //         $('#key').val(res.data.key);
+        //         $('#captcha').attr('src', res.data.image);
+        //     });
+        // });
 
         form.on('submit(login)', function (data) {
-            $.post('login', data.field, function (res) {
-                if (res.code === 0) {
+            $.post('api/user/login', JSON.stringify(data.field), function (res) {
+                if (res.code === 200) {
                     // local storage
                     layui.data('token', {key: 'Authorization', value: res.data.token});
-                    layui.data('user', {key: 'info', value: res.data});
+                    // layui.data('user', {key: 'info', value: res.data});
                     layer.msg(res.msg, {time: 1000}, function () {
                         window.location.href = 'index.html';
                     });
+                }else {
+                    layer.msg(res.msg);
                 }
             });
             return false; // require

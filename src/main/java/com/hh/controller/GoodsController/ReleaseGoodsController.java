@@ -9,10 +9,7 @@ import com.hh.util.CookieUtil;
 import com.hh.util.ResponseStatus;
 import com.hh.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,9 +20,15 @@ import javax.servlet.http.HttpSession;
 public class ReleaseGoodsController extends BaseController {
     private GoodsService goodsService;
 
+
     @Autowired
     public void setGoodsService(GoodsService goodsService){
         this.goodsService = goodsService;
+    }
+
+    @GetMapping("category")
+    public Object getCategory(){
+        return ResultUtil.ok(goodsService.getAllType());
     }
 
     @PostMapping("/addGoods")

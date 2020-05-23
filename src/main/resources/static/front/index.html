@@ -21,15 +21,10 @@
                         {{# layui.each(d, function(index, item){ }}
                         <dl>
                             <dt>
-                                {{ item.name }}<!-- 一级分类 -->
-                            </dt>
-                            {{# layui.each(item.children, function(index2, item2){ }}
-                            <dd>
-                                <a href="javascript:window.location.href='index.html?category={{ item2.id }}';">
-                                    {{ item2.name }}<!-- 二级分类 -->
+                                <a href="javascript:window.location.href='index.html?category={{ item.typeId }}';">
+                                    {{ item.typeName }}<!-- 二级分类 -->
                                 </a>
-                            </dd>
-                            {{# }); }}
+                            </dt>
                         </dl>
                         {{# }); }}
                     </div>
@@ -81,8 +76,9 @@
     layui.use(['jquery', 'element', 'laytpl', 'laypage'], function () {
         var $ = layui.$, laytpl = layui.laytpl, laypage = layui.laypage;
 
-        $.get('category', function (res) {
+        $.get('api/goods/category', function (res) {
             laytpl(category.innerHTML).render(res.data, function (html) {
+                console.log(html);
                 $('#categoryView').html(html);
             });
         });

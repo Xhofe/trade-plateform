@@ -1,4 +1,4 @@
-var API = "http://localhost:7890/";
+var API = "http://localhost:7980/";
 
 layui.use(['jquery', 'layer'], function () {
     var $ = layui.jquery;
@@ -8,6 +8,7 @@ layui.use(['jquery', 'layer'], function () {
     $.ajaxSetup({
         headers: layui.data('token'),
         dataType: 'json',
+        contentType : 'application/json',
         beforeSend: function (xhr, settings) {
             settings.url = API + settings.url;
         },

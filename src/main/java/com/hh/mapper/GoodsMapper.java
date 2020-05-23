@@ -1,6 +1,7 @@
 package com.hh.mapper;
 
 import com.hh.pojo.Goods;
+import com.hh.pojo.Type;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -58,4 +59,10 @@ public interface GoodsMapper {
      * @return 被操作的记录条数
      */
     int deleteGoods(int goodsId);
+
+    /**
+     * 获取所有分类
+     * @return 分类
+     */
+    List<Type> getAllType();
 }

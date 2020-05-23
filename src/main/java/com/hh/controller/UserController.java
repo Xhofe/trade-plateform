@@ -10,6 +10,7 @@ import com.hh.util.CodeUtil;
 import com.hh.util.CookieUtil;
 import com.hh.util.ResponseStatus;
 import com.hh.util.ResultUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/user")
 public class UserController extends BaseController{
@@ -45,13 +48,20 @@ public class UserController extends BaseController{
     @PostMapping("login")
     public Object login(@RequestBody User user, HttpServletResponse response, HttpServletRequest request) {
         //登陆
+        log.info(user.toString());
         UserDetails userDetails = userService.login(user);
+        if (userDetails==null){
+            return ResultUtil.fail(ResponseStatus.USERNAME_PASS_ERROR);
+        }
 //        Map<String, Object> data = new HashMap<>(1);
 //        data.put("token", jwtTokenUtil.generateToken(userDetails));
 //        response.addCookie(new Cookie("Authorization",jwtTokenUtil.generateToken(userDetails)));
-        CookieUtil.setCookie(response,"Authorization",jwtTokenUtil.generateToken(userDetails));
+        String token=jwtTokenUtil.generateToken(userDetails);
+        CookieUtil.setCookie(response,"Authorization",token);
         //String temp = jwtTokenUtil.generateToken(userDetails);
-        return ResultUtil.ok();
+        Map<String ,String> map=new HashMap<>(1);
+        map.put("token",token);
+        return ResultUtil.ok(map);
     }
 
     @PostMapping("/getCode")
