@@ -33,4 +33,10 @@ public interface GoodsService {
     public List<Type> getAllType();
 
     public List<Goods> searchGoods(Map map);
+
+    /**
+     * 获取所有Goods
+     * @return Goods
+     */
+    public List<Goods> getAllGoods();
 }

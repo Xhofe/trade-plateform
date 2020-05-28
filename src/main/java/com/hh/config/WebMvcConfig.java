@@ -8,16 +8,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-//    @Value("${file.img.path}")
-//    private String IMG_PATH;
-//
-//    /**
-//     * 图片ResourceHandler
-//     * @param registry ResourceHandlerRegistry
-//     */
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        String imgPath="file:"+PathUtil.getRootPath()+IMG_PATH;
-//        registry.addResourceHandler("img//**").addResourceLocations(imgPath);
-//    }
+    @Value("${file.img.path}")
+    private String IMG_PATH;
+
+    /**
+     * 图片ResourceHandler
+     * @param registry ResourceHandlerRegistry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String imgPath="file:"+PathUtil.getRootPath()+IMG_PATH;
+        registry.addResourceHandler("img//**").addResourceLocations(imgPath);
+    }
 }

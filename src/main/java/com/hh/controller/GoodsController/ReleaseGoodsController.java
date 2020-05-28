@@ -125,4 +125,13 @@ public class ReleaseGoodsController extends BaseController {
             return ResultUtil.error();
         }
     }
+
+    @GetMapping("product")
+    public Object product(){
+        List<Goods> goodsList=goodsService.getAllGoods();
+        Map<String,Object> res=new HashMap<>();
+        res.put("count",String.valueOf(goodsList.size()));
+        res.put("goods",goodsList);
+        return ResultUtil.ok(res);
+    }
 }

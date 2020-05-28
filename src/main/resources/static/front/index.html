@@ -21,7 +21,7 @@
                         {{# layui.each(d, function(index, item){ }}
                         <dl>
                             <dt>
-                                <a href="javascript:window.location.href='index.html?category={{ item.typeId }}';">
+                                <a href="javascript:window.location.href='index.html?type={{ item.typeId }}';">
                                     {{ item.typeName }}<!-- 二级分类 -->
                                 </a>
                             </dt>
@@ -34,10 +34,10 @@
             <div class="right-cont-wrap">
                 <div class="right-cont">
                     <div class="sort layui-clear">
-                        <a class="active" href="javascript:void(0);" event='volume'>销量</a>
+                        <a class="active" href="javascript:void(0);" event='total'>综合</a>
                         <a href="javascript:void(0);" event='price'>价格</a>
-                        <a href="javascript:void(0);" event='newprod'>新品</a>
-                        <a href="javascript:void(0);" event='collection'>收藏</a>
+<!--                        <a href="javascript:void(0);" event='newprod'>新品</a>-->
+<!--                        <a href="javascript:void(0);" event='collection'>收藏</a>-->
                     </div>
                     <!-- 模版导入 -->
                     <script type="text/html" id="product">
@@ -45,19 +45,19 @@
                             <span>{{ d.count }}个</span>
                         </div>
                         <div class="cont-list layui-clear">
-                            {{# layui.each(d.data, function(index, item){ }}
-                            <div class="item" data-id="{{ item.id }}">
+                            {{# layui.each(d.goods, function(index, item){ }}
+                            <div class="item" data-id="{{ item.goodsId }}">
                                 <div class="img layui-anim" data-anim="layui-anim-scale">
                                     <a href="javascript:void(0);">
-                                        <img src="{{ item.icon }}" title="{{ item.description }}"
+                                        <img src="{{ item.imgurl }}" title="{{ item.introduce }}"
                                              width="280px" height="280px">
                                     </a>
                                 </div>
                                 <div class="text">
-                                    <p class="title">{{ item.name }}</p>
+                                    <p class="title">{{ item.goodsName }}</p>
                                     <p class="price">
-                                        <span class="pri">￥{{ item.price }}</span>
-                                        <span class="nub">{{ item.stock }}库存</span>
+                                        <span class="pri">￥{{ item.secondPrice }}</span>
+<!--                                        <span class="nub">{{ item.stock }}库存</span>-->
                                     </p>
                                 </div>
                             </div>
@@ -78,22 +78,21 @@
 
         $.get('api/goods/category', function (res) {
             laytpl(category.innerHTML).render(res.data, function (html) {
-                console.log(html);
                 $('#categoryView').html(html);
             });
         });
 
-        var para = '&keyword=' + getQueryVariable('keyword') + '&category=' + getQueryVariable('category');
-        $.get('product?limit=12&page=1' + para, function (res) {
-            init(res);
+        var para = '&keyword=' + getQueryVariable('keyword') + '&type=' + getQueryVariable('type');
+        $.get('api/goods/product?limit=12&page=1' + para, function (res) {
+            init(res.data);
             laypage.render({ // 分页
                 elem: 'page',
-                count: res.count,
+                count: res.data.count,
                 limit: 12,
                 jump: function (obj, first) {
                     if (!first) { // 首次不执行
-                        $.get('product?limit=12&page=' + obj.curr, function (res) {
-                            init(res);
+                        $.get('api/goods/product?limit=12&page=' + obj.curr, function (res) {
+                            init(res.data);
                         });
                     }
                 }
@@ -110,11 +109,12 @@
                         othis.addClass(anim);
                     });
                     var id = $(this).parents('.item').attr("data-id");
-                    $.post('cart', {id: id, quantity: 1}, function (res) {
-                        if (res.code === 0) {
-                            // ok
-                        }
-                    });
+                    // $.post('cart', {id: id, quantity: 1}, function (res) {
+                    //     if (res.code === 200) {
+                    //         // ok
+                    //     }
+                    // });
+                    window.location.href='goods/'+id;
                 });
             });
         }
