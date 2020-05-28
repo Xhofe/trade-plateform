@@ -30,8 +30,8 @@
     </select>
 
     <insert id="addGoods" parameterType="goods">
-        insert into goods (goods_name, pop, price, second_price, user_id, introduce, status, type_id, imgurl)
-        values (#{goodsName},#{pop},#{price},#{secondPrice},#{userId},#{introduce},#{status},#{typeId},#{imgurl});
+        insert into goods (goods_name, pop, price, second_price, num, introduce, status, type_id, imgurl)
+        values (#{goodsName},#{pop},#{price},#{secondPrice},#{num},#{introduce},#{status},#{typeId},#{imgurl});
     </insert>
 
     <update id="updateGoods" parameterType="goods">
@@ -72,12 +72,6 @@
         delete  from goods
         where goods_id=#{goodsId};
     </delete>
-
-    <select id="getGoodsByUserId" resultType="goods" parameterType="int">
-        select *
-        from goods
-        where user_id=#{userId};
-    </select>
 
     <select id="getGoodsByGoodsId" resultType="goods" parameterType="int">
         select *

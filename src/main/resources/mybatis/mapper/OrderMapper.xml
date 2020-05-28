@@ -10,8 +10,8 @@
     </select>
 
     <insert id="addOrder" parameterType="order">
-        insert into `order` (goods_id, buy_user_id, name, address, time, cost)
-        values (#{goodsId},#{buyUserId},#{name},#{address},#{time},#{cost});
+        insert into `order` (goods_id, buy_user_id, name, address, time, cost,status,tracking_number)
+        values (#{goodsId},#{buyUserId},#{name},#{address},#{time},#{cost},#{status},#{trackingNumber});
     </insert>
 
     <delete id="deleteOrder" parameterType="int">

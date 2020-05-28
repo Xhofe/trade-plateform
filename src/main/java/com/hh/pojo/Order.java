@@ -18,4 +18,6 @@ public class Order {
   private String address;
   private java.sql.Timestamp time;
   private double cost;
+  private int status;
+  private String trackingNumber;
 }

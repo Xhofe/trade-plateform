@@ -22,7 +22,7 @@ public class goodTest {
         good.setPop(1);
         good.setPrice(999);
         good.setSecondPrice(899);
-        good.setUserId(1);
+//        good.setUserId(1);
         good.setIntroduce("测试商品描述");
         good.setStatus(1);
         good.setTypeId(1);
@@ -38,7 +38,7 @@ public class goodTest {
         good.setPop(1);
         good.setPrice(999);
         good.setSecondPrice(899);
-        good.setUserId(1);
+//        good.setUserId(1);
         good.setIntroduce("测试商品描述");
         good.setStatus(1);
         good.setTypeId(1);

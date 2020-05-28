@@ -37,11 +37,6 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapper.deleteGoods(goodsId);
     }
 
-    @Override
-    public boolean haveGoods(int userId, int goodsId) {
-        Goods goods=goodsMapper.getGoodsByGoodsId(goodsId);
-        return goods.getUserId()==userId;
-    }
 
     @Override
     public List<Goods> searchGoods(Map map) {

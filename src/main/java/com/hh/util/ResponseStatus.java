@@ -56,6 +56,11 @@ public enum ResponseStatus {
     IMG_UPLOAD_FAIL(4001,"图片上传失败"),
 
     /**
+     * 商品相关错误
+     */
+    NO_ADMIN(5001,"需要管理员权限"),
+
+    /**
      * 其他通用错误
      * */
     PASSWORD_ERROR(88001,"密码错误！");

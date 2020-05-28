@@ -6,13 +6,12 @@
     <select id="getMessageByUserId" resultType="message">
         select *
         from message
-        where (user1_id=${user1Id} and user2_id=${user2Id})
-        or (user1_id=${user2Id} and user2_id=${user1Id});
+        where (buy_id=${buyId} and sell_id=${sellId});
     </select>
 
     <insert id="addMessage" parameterType="message">
-        insert into message (user1_id, user2_id, message, time)
-        values (#{user1Id},#{user2Id},#{message},#{time});
+        insert into message (buy_id, sell_id, message, time)
+        values (#{buyId},#{sellId},#{message},#{time});
     </insert>
 
 </mapper>

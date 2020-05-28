@@ -16,7 +16,7 @@ public class Goods {
   private int pop;
   private double price;
   private double secondPrice;
-  private int userId;
+  private int num;
   private String introduce;
   private int status;
   private int typeId;

@@ -12,8 +12,9 @@ import lombok.ToString;
 public class Message {
 
   private int messageId;
-  private int user1Id;
-  private int user2Id;
+  private int buyId;
+  private int sellId;
   private String message;
   private java.sql.Timestamp time;
+  private int send;
 }

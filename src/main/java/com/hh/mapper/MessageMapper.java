@@ -12,7 +12,7 @@ public interface MessageMapper {
      * @param user2Id 用户2
      * @return 对话列表
      */
-    List<Message> getMessageByUserId(@Param("user1Id") int user1Id, @Param("user2Id") int user2Id);
+    List<Message> getMessageByUserId(@Param("buyId") int user1Id, @Param("sellId") int user2Id);
 
     /**
      * 添加一条消息

@@ -8,4 +8,5 @@ import lombok.ToString;
 public class UserDetails {
     public int userId;
     public String userName;
+    public boolean admin;
 }
