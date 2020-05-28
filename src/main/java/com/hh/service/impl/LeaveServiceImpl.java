@@ -7,6 +7,8 @@ import com.hh.service.LeaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LeaveServiceImpl implements LeaveService {
     private LeaveMapper leaveMapper;
@@ -29,5 +31,15 @@ public class LeaveServiceImpl implements LeaveService {
     @Override
     public int deleteLeave(int leaveId) {
         return deleteLeave(leaveId);
+    }
+
+    @Override
+    public boolean haveLeave(int userId, int leaveId) {
+        List<Leave> leaves = leaveMapper.getLeaveByUserId(userId);
+        for (Leave leave:leaves){
+            if(leave.getLeaveId() == leaveId)
+                return true;
+        }
+        return false;
     }
 }

@@ -2,6 +2,7 @@ package com.hh.controller;
 
 
 import com.fasterxml.jackson.databind.ser.Serializers;
+import com.hh.mapper.LeaveMapper;
 import com.hh.pojo.Goods;
 import com.hh.pojo.Leave;
 import com.hh.pojo.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.Result;
+import javax.xml.ws.Response;
 
 @RestController
 @RequestMapping("/api/leave")
@@ -52,10 +54,14 @@ public class LeaveController extends BaseController {
             leave.setUserId(userId);
 
             //todo:判断是否是这个人的留言
-            if(leaveService.updateLeave(leave) == 1)
-                return ResultUtil.ok();
+            if(leaveService.haveLeave(userId,leave.getLeaveId())){
+                if(leaveService.updateLeave(leave) == 1)
+                    return ResultUtil.ok();
+                else
+                    return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+            }
             else
-                return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+                return ResultUtil.fail(ResponseStatus.FORBIDDEN);
 
         }catch (Exception e){
             return ResultUtil.error();
@@ -73,10 +79,14 @@ public class LeaveController extends BaseController {
             leave.setUserId(userId);
 
             //todo:判断是否是这个人的留言
-            if(leaveService.deleteLeave(leave.getLeaveId()) == 1)
-                return ResultUtil.ok();
+            if(leaveService.haveLeave(userId,leave.getLeaveId())){
+                if(leaveService.deleteLeave(leave.getLeaveId()) == 1)
+                    return ResultUtil.ok();
+                else
+                    return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+            }
             else
-                return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+                return ResultUtil.fail(ResponseStatus.FORBIDDEN);
 
         }catch (Exception e){
             return ResultUtil.error();
