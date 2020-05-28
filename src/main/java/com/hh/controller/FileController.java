@@ -33,7 +33,7 @@ public class FileController extends BaseController {
     }
 
     @PostMapping("upload")
-    public Object upload(@RequestParam("img") MultipartFile img, HttpServletRequest request){
+    public Object upload(@RequestParam("file") MultipartFile img, HttpServletRequest request){
         UserDetails userDetails = getUserDetails(request);
         if (userDetails == null) {
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
@@ -43,7 +43,7 @@ public class FileController extends BaseController {
             return ResultUtil.fail(ResponseStatus.IMG_UPLOAD_FAIL);
         }
         Map<String ,String > map=new HashMap<>(1);
-        map.put("path","img/"+res);
+        map.put("path","/img/"+res);
         return ResultUtil.ok(map);
     }
 }

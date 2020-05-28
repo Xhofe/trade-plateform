@@ -13,4 +13,6 @@ public interface UserService {
     public boolean exitsUser(String email);
 
     public int updateUser(User user);
+
+    public User getUserById(int userId);
 }

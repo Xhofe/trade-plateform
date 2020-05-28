@@ -28,28 +28,35 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label layui-icon layui-icon-username">昵称</label>
                             <div class="layui-input-block">
-                                <input type="text" name="nickname" id="nickname" placeholder="请输入昵称"
+                                <input type="text" name="userName" id="userName" placeholder="请输入昵称"
                                        class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label layui-icon layui-icon-username">邮箱</label>
                             <div class="layui-input-block">
-                                <input type="text" name="email" id="email" placeholder="请输入邮箱" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item" pane>
-                            <label class="layui-form-label layui-icon layui-icon-username">性别</label>
-                            <div class="layui-input-block">
-                                <input type="radio" name="gender" value="0" title="保密" checked>
-                                <input type="radio" name="gender" value="1" title="男性">
-                                <input type="radio" name="gender" value="2" title="女性">
+                                <input readonly="readonly" type="text" name="userEmail" id="userEmail" placeholder="请输入邮箱" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-icon layui-icon-username">生日</label>
+                            <label class="layui-form-label layui-icon layui-icon-username">邮箱</label>
                             <div class="layui-input-block">
-                                <input type="text" name="birthday" id="birthday" placeholder="请输入生日"
+                                <input type="number" name="userPhone" id="userPhone" placeholder="请输入邮箱" class="layui-input">
+                            </div>
+                        </div>
+
+<!--                        <div class="layui-form-item" pane>-->
+<!--                            <label class="layui-form-label layui-icon layui-icon-username">性别</label>-->
+<!--                            <div class="layui-input-block">-->
+<!--                                <input type="radio" name="gender" value="0" title="保密" checked>-->
+<!--                                <input type="radio" name="gender" value="1" title="男性">-->
+<!--                                <input type="radio" name="gender" value="2" title="女性">-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-icon layui-icon-username">地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="userAddress" id="userAddress" placeholder="请输入地址"
                                        class="layui-input">
                             </div>
                         </div>
@@ -72,7 +79,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label layui-icon layui-icon-password">新密码</label>
                             <div class="layui-input-block">
-                                <input type="password" name="password" placeholder="请输入新密码" class="layui-input">
+                                <input type="password" name="userPassword" placeholder="请输入新密码" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -89,33 +96,33 @@
 </div>
 <script type="text/javascript" src="include/footer.js"></script>
 <script>
-    layui.use(['jquery', 'element', 'form', 'upload', 'laydate'], function () {
-        var $ = layui.jquery, form = layui.form, upload = layui.upload, laydate = layui.laydate;
+    layui.use(['jquery', 'element', 'form', 'upload', 'laydate','layer'], function () {
+        var $ = layui.jquery, form = layui.form, upload = layui.upload, laydate = layui.laydate,layer=layui.layer;
 
-        $.get('user', function (res) {
-            if (res.code === 0) {
-                $('#avatar').attr('src', res.data.avatar);
-                $('#nickname').val(res.data.nickname);
-                $('#email').val(res.data.email);
-                $('input[name="gender"]').each(function (i, element) {
-                    if (element.value === res.data.gender.toString()) {
-                        $(element).prop('checked', true);
-                    }
-                });
-                $('#birthday').val(res.data.birthday);
+        $.get('/api/user/userInfo', function (res) {
+            if (res.code === 200) {
+                $('#userAvatar').attr('src', res.data.userAvatar);
+                $('#userName').val(res.data.userName);
+                $('#userEmail').val(res.data.userEmail);
+                $('#userPhone').val(res.data.userPhone);
+                $('#userAddress').val(res.data.userAddress);
                 form.render(); // 刷新radio
+            }else {
+                layer.msg(res.msg);
             }
         });
 
         form.on('submit(confirm)', function (data) {
             delete data.field.file; // 删除file
             data.field.avatar = $('#avatar')[0].src; // 添加avatar
-            $.post('user', data.field, function (res) {
-                if (res.code === 0) {
-                    $('#header-nickname').text(data.field.nickname);
-                    $('#header-avatar').attr('src', data.field.avatar);
+            $.post('/api/user/updateUser', JSON.stringify(data.field), function (res) {
+                if (res.code === 200) {
+                    // $('#header-nickname').text(data.field.nickname);
+                    // $('#header-avatar').attr('src', data.field.avatar);
                     // local storage
-                    layui.data('user', {key: 'info', value: data.field});
+                    layui.data('user', {key: 'SUCCESS', value: data.field});
+                }else {
+                    layer.msg(res.msg);
                 }
             });
             return false; // require
@@ -123,21 +130,24 @@
 
         upload.render({
             elem: '#upload',
-            url: 'upload',
+            url: 'api/file/upload',
             done: function (res) {
-                $('#avatar').attr('src', res.data); // 异步 + cdn
+                $('#avatar').attr('src', res.data.path); // 异步 + cdn
                 layer.msg(res.msg);
             }
         });
 
-        laydate.render({
-            elem: '#birthday'
-        });
+        // laydate.render({
+        //     elem: '#birthday'
+        // });
 
         form.on('submit(confirm2)', function (data) {
-            $.post('user/password', data.field, function (res) {
-                if (res.code === 0) {
+            $.post('api/user/updateUser', JSON.stringify(data.field), function (res) {
+                if (res.code === 200) {
                     // NONE
+                    layer.msg("修改成功");
+                }else {
+                    layer.msg(res.msg);
                 }
             });
             return false; // require

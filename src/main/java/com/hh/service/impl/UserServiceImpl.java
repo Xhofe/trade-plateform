@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
+    @Override
+    public User getUserById(int userId) {
+        return userMapper.getUserById(userId);
+    }
+
     public UserDetails login(User user){
         List<User> users=userMapper.findUserEmail(user.getUserEmail());
         if (users.size()==0||!user.getUserPassword().equals(users.get(0).getUserPassword())){
