@@ -28,7 +28,7 @@ public class ReleaseGoodsController extends BaseController {
         this.goodsService = goodsService;
     }
 
-    @GetMapping("category")
+    @GetMapping("/category")
     public Object getCategory(){
         return ResultUtil.ok(goodsService.getAllType());
     }

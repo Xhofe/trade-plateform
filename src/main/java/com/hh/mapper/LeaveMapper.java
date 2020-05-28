@@ -1,9 +1,13 @@
 package com.hh.mapper;
 
 import com.hh.pojo.Leave;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Mapper
+@Repository
 public interface LeaveMapper {
     /**
      * 获取一个物品的所有留言
@@ -32,4 +36,11 @@ public interface LeaveMapper {
      * @return 被操作的记录条数
      */
     int deleteLeave(int leaveId);
+
+    /**
+     * 更新一条留言
+     * @param leave 留言
+     * @return 是否成功
+     */
+    //int updateLeave(Leave leave);
 }

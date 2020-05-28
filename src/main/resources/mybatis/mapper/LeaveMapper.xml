@@ -20,9 +20,26 @@
         values (#{userId},#{goodsId},#{leaveMessage},#{leaveTime});
     </insert>
 
+        <update id="updateLeave" parameterType="leave">
+            update leave
+            <set>
+                <if test="userId!=null">
+                    userId = #{userId}
+                </if>
+                <if test="goodsId!=null">
+                    goodsId = #{goodsId}
+                </if>
+                <if test="leaveMessage!=null">
+                    leaveMessage = #{leaveMessage}
+                </if>
+            </set>
+            where leave_id=#{leaveId};
+        </update>
+
     <delete id="deleteLeave" parameterType="int">
         delete from `leave`
         where leave_id=#{leaveId};
     </delete>
 
 </mapper>
+
