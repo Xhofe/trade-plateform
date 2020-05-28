@@ -112,6 +112,7 @@ public class UserController extends BaseController{
         if (userDetails == null) {
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         }
+        user.setUserId(userDetails.getUserId());
         userService.updateUser(user);
         return ResultUtil.ok();
     }

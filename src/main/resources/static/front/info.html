@@ -39,9 +39,9 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-icon layui-icon-username">邮箱</label>
+                            <label class="layui-form-label layui-icon layui-icon-username">电话</label>
                             <div class="layui-input-block">
-                                <input type="number" name="userPhone" id="userPhone" placeholder="请输入邮箱" class="layui-input">
+                                <input type="number" name="userPhone" id="userPhone" placeholder="请输入电话" class="layui-input">
                             </div>
                         </div>
 
@@ -101,7 +101,7 @@
 
         $.get('/api/user/userInfo', function (res) {
             if (res.code === 200) {
-                $('#userAvatar').attr('src', res.data.userAvatar);
+                $('#avatar').attr('src', res.data.userAvatar);
                 $('#userName').val(res.data.userName);
                 $('#userEmail').val(res.data.userEmail);
                 $('#userPhone').val(res.data.userPhone);
@@ -114,7 +114,7 @@
 
         form.on('submit(confirm)', function (data) {
             delete data.field.file; // 删除file
-            data.field.avatar = $('#avatar')[0].src; // 添加avatar
+            data.field.userAvatar = $('#avatar')[0].src; // 添加avatar
             $.post('/api/user/updateUser', JSON.stringify(data.field), function (res) {
                 if (res.code === 200) {
                     // $('#header-nickname').text(data.field.nickname);
