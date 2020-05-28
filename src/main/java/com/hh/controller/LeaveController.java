@@ -1,9 +1,6 @@
 package com.hh.controller;
 
 
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.hh.mapper.LeaveMapper;
-import com.hh.pojo.Goods;
 import com.hh.pojo.Leave;
 import com.hh.pojo.UserDetails;
 import com.hh.service.LeaveService;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.transform.Result;
-import javax.xml.ws.Response;
 
 @RestController
 @RequestMapping("/api/leave")
