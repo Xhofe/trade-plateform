@@ -84,7 +84,7 @@
                     } else {
                         layer.confirm('确认购买？', function (index) {
                             $.post('pay', function (res) {
-                                if (res.code === 0) {
+                                if (res.code === 200) {
                                     layer.msg(res.data, {
                                         time: 2000, end: function () {
                                             window.location.reload();

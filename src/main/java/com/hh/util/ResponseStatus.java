@@ -33,7 +33,7 @@ public enum ResponseStatus {
      * 商品相关错误
      */
     NO_GOODS(600,"没有s商品"),
-
+    HAS_COLLECT(601,"已经收藏过该商品了"),
     /**
      * 用户相关错误
      * */
