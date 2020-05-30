@@ -9,6 +9,7 @@ import com.hh.pojo.UserDetails;
 import com.hh.service.GoodsService;
 import com.hh.util.ResponseStatus;
 import com.hh.util.ResultUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -126,5 +127,12 @@ public class ReleaseGoodsController extends BaseController {
         res.put("count", String.valueOf(goodsList.size()));
         res.put("goods", goodsList);
         return ResultUtil.ok(res);
+    }
+
+    @GetMapping("goodsInfo")
+    public Object goodsInfo(@RequestParam("id") int id){
+        Goods goods=goodsService.getGoodsById(id);
+        if (goods==null)return ResultUtil.fail(ResponseStatus.NO_GOODS);
+        return ResultUtil.ok(goods);
     }
 }

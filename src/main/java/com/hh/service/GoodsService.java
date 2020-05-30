@@ -32,4 +32,6 @@ public interface GoodsService {
      * @return Goods
      */
     public List<Goods> getAllGoods();
+
+    public Goods getGoodsById(int goodsId);
 }

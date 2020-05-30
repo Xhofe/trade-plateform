@@ -52,4 +52,9 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> getAllGoods() {
         return goodsMapper.getAllGoods();
     }
+
+    @Override
+    public Goods getGoodsById(int goodsId) {
+        return goodsMapper.getGoodsByGoodsId(goodsId);
+    }
 }

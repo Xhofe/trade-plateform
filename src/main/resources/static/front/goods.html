@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+    <script type="text/javascript" src="include/title.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="include/site-nav.js"></script>
+<script type="text/javascript" src="include/header.js"></script>
+<div class="content content-nav-base datails-content">
+    <script type="text/javascript" src="include/main-nav.js"></script>
+    <div class="data-cont-wrap w1200">
+        <div class="crumb">
+            <a href="javascript:;">首页</a>
+            <span>></span>
+            <a href="javascript:;">所有商品</a>
+            <span>></span>
+            <a href="javascript:;">产品详情</a>
+        </div>
+        <div class="product-intro layui-clear">
+            <div class="preview-wrap">
+                <a href="javascript:;"><img src="../res/static/img/details_img1.jpg"></a>
+            </div>
+            <div class="itemInfo-wrap">
+                <div class="itemInfo">
+                    <div class="title">
+                        <h4 id="name">男女宝宝秋冬装套装0一1岁婴儿衣服潮加厚连体衣保暖冬季外出抱衣 </h4>
+                        <span><i class="layui-icon layui-icon-rate-solid"></i>销量:<span id="pop"></span></span>
+                    </div>
+                    <div class="summary">
+                        <p class="reference"><span>参考价</span>
+                            <del id="price">￥280.00</del>
+                        </p>
+                        <p class="activity"><span>活动价</span><strong class="price"><i>￥</i><span
+                                id="secondPrice">99.00</span></strong></p>
+<!--                        <p class="address-box"><span>送&nbsp;&nbsp;&nbsp;&nbsp;至</span><strong class="address">江西&nbsp;&nbsp;南昌&nbsp;&nbsp;东湖区</strong></p>-->
+                        <p class="address-box"><span>库&nbsp;&nbsp;&nbsp;&nbsp;存</span><strong id="num">0</strong></p>
+                    </div>
+                    <div class="choose-btns">
+                        <button class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>
+                        <button class="layui-btn  layui-btn-danger car-btn"><i
+                                class="layui-icon layui-icon-cart-simple"></i>收藏
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-clear">
+            <div class="aside">
+                <h4>热销推荐</h4>
+                <div class="item-list">
+                    <div class="item">
+                        <img src="">
+                        <p><span>title</span><span class="pric">￥price</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="detail">
+                <h4>详情</h4>
+                <div class="item">
+                    <div id="imgs">
+
+                    </div>
+                    <div id="introduce">
+                        <p>这是一件商品</p>
+                    </div>
+                </div>
+                <h4>评论</h4>
+                <div class="item">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="include/footer.js"></script>
+<script>
+    layui.use(['jquery', 'element', 'laytpl', 'laypage'], function () {
+        var $ = layui.$;
+
+        let goodsId = getQueryVariable("id");
+        $.get('api/goods/goodsInfo?id=' + goodsId, function (res) {
+
+        });
+
+        function getQueryVariable(variable) {
+            var search = layui.url().search;
+            if (search.hasOwnProperty(variable)) return search[variable];
+            else return '';
+        }
+
+    });
+</script>
+</body>
+</html>
