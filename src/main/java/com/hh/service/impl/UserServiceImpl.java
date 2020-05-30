@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails=new UserDetails();
         userDetails.setUserId(users.get(0).getUserId());
         userDetails.setUserName(users.get(0).getUserName());
+        userDetails.setAdmin(false);
         return userDetails;
     }
 

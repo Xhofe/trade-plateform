@@ -9,11 +9,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class GoodsComments {
+public class Comments {
 
-  private int id;
-  private int userId;
-  private int goodsId;
-  private String comment;
-  private java.sql.Timestamp time;
+    private int id;
+    private int userId;
+    private int goodsId;
+    private String comment;
+    private java.sql.Timestamp time;
+    private int orderId;
 }

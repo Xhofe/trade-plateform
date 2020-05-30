@@ -20,7 +20,7 @@ if (!ok()) {
     document.write("            <div class=\"login\"><a href=\"register.html\">注册<\/a><\/div>");
 } else {
     document.write("            <div class=\"login\"><a href=\"info.html\">个人信息<\/a><\/div>");
-    document.write("            <div class=\"login\"><a href=\"/admin\">我是卖家<\/a><\/div>");
+    // document.write("            <div class=\"login\"><a href=\"/admin\">我是卖家<\/a><\/div>");
     document.write("            <div class=\"login\"><a href=\"javascript:void(0);\" onclick=\"logout()\">退出<\/a><\/div>");
 }
 document.write("        <\/div>");

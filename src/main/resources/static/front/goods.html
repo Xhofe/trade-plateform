@@ -22,22 +22,22 @@
         </div>
         <div class="product-intro layui-clear">
             <div class="preview-wrap">
-                <a href="javascript:;"><img src="../res/static/img/details_img1.jpg"></a>
+                <a href="javascript:;"><img id="firstImg" src=""></a>
             </div>
             <div class="itemInfo-wrap">
                 <div class="itemInfo">
                     <div class="title">
-                        <h4 id="name">男女宝宝秋冬装套装0一1岁婴儿衣服潮加厚连体衣保暖冬季外出抱衣 </h4>
+                        <h4 id="name">goodsName </h4>
                         <span><i class="layui-icon layui-icon-rate-solid"></i>销量:<span id="pop"></span></span>
                     </div>
                     <div class="summary">
                         <p class="reference"><span>参考价</span>
-                            <del id="price">￥280.00</del>
+                            <del id="price">￥price</del>
                         </p>
                         <p class="activity"><span>活动价</span><strong class="price"><i>￥</i><span
-                                id="secondPrice">99.00</span></strong></p>
+                                id="secondPrice">secondPrice</span></strong></p>
 <!--                        <p class="address-box"><span>送&nbsp;&nbsp;&nbsp;&nbsp;至</span><strong class="address">江西&nbsp;&nbsp;南昌&nbsp;&nbsp;东湖区</strong></p>-->
-                        <p class="address-box"><span>库&nbsp;&nbsp;&nbsp;&nbsp;存</span><strong id="num">0</strong></p>
+                        <p class="address-box"><span>库&nbsp;&nbsp;&nbsp;&nbsp;存</span><strong id="num">num</strong></p>
                     </div>
                     <div class="choose-btns">
                         <button class="layui-btn layui-btn-primary purchase-btn">立刻购买</button>
@@ -82,8 +82,30 @@
         var $ = layui.$;
 
         let goodsId = getQueryVariable("id");
+        // 获取商品信息
         $.get('api/goods/goodsInfo?id=' + goodsId, function (res) {
+           if (res.code===200){
+               //Success
+               $('#name').text(res.data.goodsName);
+               let imgs=res.data.imgurl.split(';');
+               $('#firstImg').attr('src',imgs[0]);
+               $('#pop').text(res.data.pop);
+               $('#price').text('￥'+res.data.price);
+               $('#secondPrice').text(res.data.secondPrice);
+               $('#num').text(res.data.num);
 
+               for (let i=0;i<imgs.length;i++){
+                   $('#imgs').append("<img src="+imgs[i]+">");
+               }
+               $('#introduce').append(res.data.introduce);
+           }else {
+               layer.msg(res.msg);
+           }
+        });
+
+        // 获取商品评论
+        $.get('api/goods/comments/'+goodsId,function (res) {
+            console.log(res);
         });
 
         function getQueryVariable(variable) {

@@ -2,6 +2,7 @@ package com.hh.mapper;
 
 import com.hh.pojo.Order;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,4 +30,8 @@ public interface OrderMapper {
      * @return 被操作的记录条数
      */
     int deleteOrder(int orderId);
+
+    List<Order> getOrdersByUserIdAndGoodsId(@Param("userId") int userId, @Param("goodsId") int goodsId);
+
+    Order getOrderById(int id);
 }

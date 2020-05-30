@@ -19,7 +19,7 @@ layui.use(['jquery', 'layer'], function () {
             if (xhr.status === 200) {
                 try {
                     var res = JSON.parse(xhr.responseText);
-                    if (res.code === 0) {
+                    if (res.code === 200) {
                         layer.msg(res.msg);
                     } else {
                         layer.msg(JSON.stringify(res));

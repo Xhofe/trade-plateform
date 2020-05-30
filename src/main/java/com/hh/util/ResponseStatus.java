@@ -49,6 +49,7 @@ public enum ResponseStatus {
      * 评论相关错误
      * */
     HAS_COMMENTS(3001, "已评价过该商品！"),
+    NO_BUY(3002,"没有购买该商品"),
 
     /**
      * 文件错误
