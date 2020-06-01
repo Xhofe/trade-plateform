@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hh.mapper.OrderMapper">
 
-    <select id="getOrdersByUserId" parameterType="int">
+    <select id="getOrdersByUserId" parameterType="int" resultType="order">
         select *
         from `order`
         where buy_user_id=#{userId};
@@ -19,7 +19,7 @@
         where order_id=#{orderId};
     </delete>
 
-    <select id="getOrderById" parameterType="int" resultType="Order">
+    <select id="getOrderById" parameterType="int" resultType="order">
         select *
         from `order`
         where order_id=#{id};

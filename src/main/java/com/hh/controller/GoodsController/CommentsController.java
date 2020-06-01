@@ -1,6 +1,7 @@
 package com.hh.controller.GoodsController;
 
 import com.hh.controller.BaseController;
+import com.hh.enums.OrderStatus;
 import com.hh.pojo.Comments;
 import com.hh.pojo.Order;
 import com.hh.pojo.UserDetails;
@@ -47,7 +48,7 @@ public class CommentsController extends BaseController {
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         }
         Order order=orderService.getOrderById(comments.getOrderId());
-        if (order==null){
+        if (order==null||order.getStatus()!= OrderStatus.FINISH.getCode()){
             return ResultUtil.fail(ResponseStatus.NO_BUY);
         }
         comments.setUserId(order.getBuyUserId());

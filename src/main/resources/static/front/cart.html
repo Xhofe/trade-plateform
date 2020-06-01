@@ -88,7 +88,7 @@
                         layer.msg('请选择一行');
                     } else {
                         layer.confirm('确认购买？', function (index) {
-                            $.post('pay', function (res) {
+                            $.get('api/order/buy', function (res) {
                                 if (res.code === 200) {
                                     layer.msg(res.data, {
                                         time: 2000, end: function () {

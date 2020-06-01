@@ -49,8 +49,8 @@
             <if test="secondPrice!=null">
                 second_price=#{secondPrice},
             </if>
-            <if test="userId!=null">
-                user_id=#{userId},
+            <if test="num!=null">
+                num=#{num},
             </if>
             <if test="introduce!=null">
                 introduce=#{introduce},
@@ -58,8 +58,8 @@
             <if test="status!=null">
                 status=#{status},
             </if>
-            <if test="type!=null">
-                type=#{type},
+            <if test="typeId!=null">
+                type_id=#{typeId},
             </if>
             <if test="imgurl!=null">
                 imgurl=#{imgurl}

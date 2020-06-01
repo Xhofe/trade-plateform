@@ -1,13 +1,17 @@
 package com.hh.util;
 
 import com.hh.enums.ResponseStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
 
 @Data
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResultUtil<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -21,10 +25,6 @@ public class ResultUtil<T> implements Serializable {
      * 响应中的数据
      * */
     private T data;
-
-    private ResultUtil() {
-
-    }
 
     private ResultUtil(ResponseStatus ResponseStatus) {
         this.code = ResponseStatus.getCode();;
@@ -62,6 +62,14 @@ public class ResultUtil<T> implements Serializable {
      * */
     public static ResultUtil error() {
         return new ResultUtil(ResponseStatus.ERROR);
+    }
+
+    public static ResultUtil error(int code,String msg){
+        return new ResultUtil(code,msg,null);
+    }
+
+    public static ResultUtil fail(int code,String msg){
+        return new ResultUtil(code,msg,null);
     }
 }
 

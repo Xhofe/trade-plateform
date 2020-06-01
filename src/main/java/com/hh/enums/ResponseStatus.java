@@ -62,6 +62,14 @@ public enum ResponseStatus {
     NO_ADMIN(5001,"需要管理员权限"),
 
     /**
+     * 支付相关错误
+     */
+    BLANK_ORDER_NO(6001,"订单编号不能为空"),
+    AMOUNT_LESS_THAN_0(6002,"退款金额必须大于0"),
+    REFUND_FAIL(6003,"订单退款失败"),
+    FAILED_GENERATE_ORDER(6004,"订单生成失败"),
+
+    /**
      * 其他通用错误
      * */
     PASSWORD_ERROR(88001,"密码错误！");

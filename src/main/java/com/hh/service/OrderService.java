@@ -1,6 +1,7 @@
 package com.hh.service;
 
 import com.hh.pojo.Order;
+import com.hh.pojo.User;
 
 import java.util.List;
 
@@ -22,4 +23,5 @@ public interface OrderService {
 
     public Order getOrderById(int id);
 
+    public String creatOrder(User user);
 }

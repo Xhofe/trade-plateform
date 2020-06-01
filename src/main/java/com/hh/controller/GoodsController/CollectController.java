@@ -47,12 +47,6 @@ public class CollectController extends BaseController {
         return ResultUtil.ok();
     }
 
-    @GetMapping("buy/")
-    public Object buy(HttpServletRequest request){
-
-        return ResultUtil.ok();
-    }
-
     @PostMapping("count")
     public Object count(@RequestBody CollectVo collectVo,HttpServletRequest request){
         UserDetails userDetails = getUserDetails(request);
