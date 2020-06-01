@@ -1,5 +1,6 @@
 package com.hh.util;
 
+import com.hh.enums.ResponseStatus;
 import lombok.Data;
 import lombok.ToString;
 

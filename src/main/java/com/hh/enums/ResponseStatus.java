@@ -1,4 +1,4 @@
-package com.hh.util;
+package com.hh.enums;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

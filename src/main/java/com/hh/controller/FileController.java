@@ -3,11 +3,10 @@ package com.hh.controller;
 import com.hh.pojo.UserDetails;
 import com.hh.service.FileService;
 import com.hh.util.PathUtil;
-import com.hh.util.ResponseStatus;
+import com.hh.enums.ResponseStatus;
 import com.hh.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.system.ApplicationHome;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 

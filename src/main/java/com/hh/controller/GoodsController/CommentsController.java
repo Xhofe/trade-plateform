@@ -6,7 +6,7 @@ import com.hh.pojo.Order;
 import com.hh.pojo.UserDetails;
 import com.hh.service.CommentsService;
 import com.hh.service.OrderService;
-import com.hh.util.ResponseStatus;
+import com.hh.enums.ResponseStatus;
 import com.hh.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

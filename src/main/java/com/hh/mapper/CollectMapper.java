@@ -29,4 +29,8 @@ public interface CollectMapper {
      * @return 添加的记录条数
      */
     int addCollect(Collect collect);
+
+    Collect getCollectById(int id);
+
+    int updateCollect(Collect collect);
 }

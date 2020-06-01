@@ -47,7 +47,7 @@
 
         table.render({
             elem: '#table',
-            url: 'cart',
+            url: 'api/goods/collect/list',
             page: false,
             size: 'lg',
             toolbar: '#toolbarTpl', // 'default'
@@ -57,7 +57,12 @@
                     d.amount = (d.price * d.quantity).toFixed(2);
                     d.LAY_CHECKED = d.checked;
                 });
+                res.count=res.data.length;
+                console.log(res);
                 return res;
+            },
+            response:{
+                statusCode: 200
             },
             cols: [[
                 {type: 'checkbox'},
@@ -104,8 +109,8 @@
                             ids.push(d.id);
                         });
                         layer.confirm('确认删除？', function (index) {
-                            $.delete('cart/' + ids.join(','), function (res) {
-                                if (res.code === 0) {
+                            $.get('api/goods/collect/delete/' + ids.join(','), function (res) {
+                                if (res.code === 200) {
                                     window.location.reload();
                                 }
                             });
@@ -121,8 +126,8 @@
             switch (obj.event) {
                 case 'sub':
                     quantity -= 1;
-                    $.put('cart/', {id: obj.data.id, quantity: quantity}, function (res) {
-                        if (res.code === 0) {
+                    $.post('api/goods/collect/count', JSON.stringify({id: obj.data.id, quantity: quantity}), function (res) {
+                        if (res.code === 200) {
                             obj.update({quantity: quantity, amount: (obj.data.price * quantity).toFixed(2)});
                             updateCheckTotal();
                         }
@@ -130,8 +135,8 @@
                     break;
                 case 'add':
                     quantity += 1;
-                    $.put('cart/', {id: obj.data.id, quantity: quantity}, function (res) {
-                        if (res.code === 0) {
+                    $.post('api/goods/collect/count', JSON.stringify({id: obj.data.id, quantity: quantity}), function (res) {
+                        if (res.code === 200) {
                             obj.update({quantity: quantity, amount: (obj.data.price * quantity).toFixed(2)});
                             updateCheckTotal();
                         }
@@ -144,10 +149,10 @@
         table.on('checkbox(table)', function (obj) {
             updateCheckTotal();
             if (obj.type === 'all') {
-                $.put('cart/check/0', {checked: obj.checked}, function (res) {
+                $.get('api/goods/collect/check/0?checked='+obj.checked, function (res) {
                 });
             } else {
-                $.put('cart/check/' + obj.data.id, {checked: obj.checked}, function (res) {
+                $.get('api/goods/collect/check/' + obj.data.id+'?checked='+obj.checked, function (res) {
                 });
             }
         });

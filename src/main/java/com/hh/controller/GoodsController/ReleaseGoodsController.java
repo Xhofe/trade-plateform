@@ -7,9 +7,8 @@ import com.hh.controller.BaseController;
 import com.hh.pojo.Goods;
 import com.hh.pojo.UserDetails;
 import com.hh.service.GoodsService;
-import com.hh.util.ResponseStatus;
+import com.hh.enums.ResponseStatus;
 import com.hh.util.ResultUtil;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

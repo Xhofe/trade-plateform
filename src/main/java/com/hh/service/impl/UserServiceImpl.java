@@ -4,7 +4,6 @@ import com.hh.mapper.UserMapper;
 import com.hh.pojo.User;
 import com.hh.pojo.UserDetails;
 import com.hh.service.UserService;
-import com.hh.util.ResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

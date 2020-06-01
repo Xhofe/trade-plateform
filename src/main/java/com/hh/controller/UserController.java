@@ -1,21 +1,18 @@
 package com.hh.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.hh.pojo.UserDetails;
 import com.hh.service.MailService;
 import com.hh.service.UserService;
 import com.hh.pojo.User;
 import com.hh.util.CodeUtil;
 import com.hh.util.CookieUtil;
-import com.hh.util.ResponseStatus;
+import com.hh.enums.ResponseStatus;
 import com.hh.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

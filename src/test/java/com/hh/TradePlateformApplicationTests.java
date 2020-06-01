@@ -2,7 +2,7 @@ package com.hh;
 
 import com.hh.mapper.UserMapper;
 import com.hh.pojo.User;
-import com.hh.util.ResponseStatus;
+import com.hh.enums.ResponseStatus;
 import com.hh.util.ResultUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @SpringBootTest
 class TradePlateformApplicationTests {

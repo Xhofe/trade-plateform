@@ -14,4 +14,6 @@ public class Collect {
   private int collectId;
   private int userId;
   private int goodsId;
+  private int count;
+  private int checked;
 }
