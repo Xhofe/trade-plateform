@@ -34,4 +34,6 @@ public interface OrderMapper {
     List<Order> getOrdersByUserIdAndGoodsId(@Param("userId") int userId, @Param("goodsId") int goodsId);
 
     Order getOrderById(int id);
+
+    int updateOrder(Order order);
 }

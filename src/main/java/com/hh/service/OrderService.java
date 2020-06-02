@@ -24,4 +24,11 @@ public interface OrderService {
     public Order getOrderById(int id);
 
     public String creatOrder(User user);
+
+    public int cancelOrder(int id);
+
+    public int receiveOrder(int id);
+
+    public int refundOrder(int id);
+
 }

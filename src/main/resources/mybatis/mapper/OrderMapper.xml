@@ -25,4 +25,35 @@
         where order_id=#{id};
     </select>
 
+    <update id="updateOrder" parameterType="order">
+        update `order`
+        <set>
+            <if test="goodsId!=null">
+                goods_id=#{goodsId},
+            </if>
+            <if test="buyUserId!=null">
+                buy_user_id=#{buyUserId},
+            </if>
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="address!=null">
+                address=#{address},
+            </if>
+            <if test="time!=null">
+                time=#{time},
+            </if>
+            <if test="cost!=null">
+                cost=#{cost},
+            </if>
+            <if test="status!=null">
+                status=#{status},
+            </if>
+            <if test="trackingNumber!=null">
+                tracking_number=#{trackingNumber}
+            </if>
+        </set>
+        where order_id=#{orderId};
+    </update>
+
 </mapper>

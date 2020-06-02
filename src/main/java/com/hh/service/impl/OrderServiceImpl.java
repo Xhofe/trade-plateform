@@ -41,6 +41,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int receiveOrder(int id) {
+        Order order=getOrderById(id);
+        order.setStatus(OrderStatus.FINISH.getCode());
+        return orderMapper.updateOrder(order);
+    }
+
+    @Override
+    public int refundOrder(int id) {
+        Order order=getOrderById(id);
+        order.setStatus(OrderStatus.REFUND_REQUEST.getCode());
+        return orderMapper.updateOrder(order);
+    }
+
+    @Override
+    public int cancelOrder(int id) {
+        Order order=getOrderById(id);
+        order.setStatus(OrderStatus.CANCEL.getCode());
+        return orderMapper.updateOrder(order);
+    }
+
+    @Override
     public List<Order> getOrdersByUserId(int userId) {
         return orderMapper.getOrdersByUserId(userId);
     }
@@ -70,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
             order.setGoodsId(goods.getGoodsId());
             order.setBuyUserId(user.getUserId());
             order.setAddress(user.getUserAddress());
-            order.setName(goods.getGoodsName());
+            order.setName(user.getUserName());
             order.setCost(collect.getCount()*goods.getSecondPrice());
             order.setStatus(OrderStatus.TO_BE_PAID.getCode());
             order.setTime(new Timestamp(System.currentTimeMillis()));

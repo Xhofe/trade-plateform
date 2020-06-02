@@ -10,10 +10,15 @@ import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.hh.config.AliPayConfig;
+import com.hh.enums.OrderStatus;
 import com.hh.enums.ResponseStatus;
+import com.hh.mapper.OrderMapper;
+import com.hh.pojo.Order;
 import com.hh.service.AliPayService;
+import com.hh.service.OrderService;
 import com.hh.util.ResultMap;
 import com.hh.util.ResultUtil;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +34,12 @@ public class AliPayServiceImpl implements AliPayService {
 
     private AliPayConfig alipayConfig;
     private AlipayClient alipayClient;
+    private OrderMapper orderMapper;
+
+    @Autowired
+    public void setOrderMapper(OrderMapper orderMapper) {
+        this.orderMapper = orderMapper;
+    }
 
     @Autowired
     public void setAlipayClient(AlipayClient alipayClient) {
@@ -65,9 +76,12 @@ public class AliPayServiceImpl implements AliPayService {
         if ("TRADE_FINISHED".equals(tradeStatus) || "TRADE_SUCCESS".equals(tradeStatus)) {
             // 支付成功，根据业务逻辑修改相应数据的状态
 //             boolean state = orderPaymentService.updatePaymentState(orderNo, tradeNo);
-            if (true) {//state
-                return true;
-            }
+            Order order=orderMapper.getOrderById(Integer.parseInt(orderNo));
+            if (order==null)return false;
+            order.setStatus(OrderStatus.TO_BE_SHIPPED.getCode());
+            int res=orderMapper.updateOrder(order);
+            //state
+            return res == 1;
         }
         return false;
     }

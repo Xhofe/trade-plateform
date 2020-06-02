@@ -41,7 +41,7 @@
 <script type="text/javascript" src="include/footer.js"></script>
 <script type="text/html" id="toolbarTpl">
     <div class="layui-inline">
-        <select name="select" lay-filter="statusSearch">
+        <select name="select" lay-filter="statusSearch" id="select">
             <option value="">所有订单</option>
             <option value="0">待付款</option>
             <option value="1">待发货</option>
@@ -71,11 +71,22 @@
     layui.use(['jquery', 'form', 'table', 'laytpl'], function () {
         var $ = layui.$, form = layui.form, table = layui.table, laytpl = layui.laytpl;
         let status=['待付款','待发货','待收货','已取消','已完成','退款申请','退款成功'];
+        let selectStatus;
         form.on('select(statusSearch)', function (data) {
+            selectStatus=data.value;
             table.reload('table', {
                 // url: 'seller/order/list',
-                where: {status: data.value}
+                page:{
+                  curr:1
+                },
+                where: {
+                    status: status[parseInt(selectStatus)]
+                    // key:{
+                    //     status: status[parseInt(selectStatus)]
+                    // }
+                }
             });
+            $("#select").val(selectStatus);
         });
 
         table.render({
@@ -84,7 +95,8 @@
             page: true,
             size: 'lg',
             toolbar: '#toolbarTpl', // 'default'
-            parseData: function (res) { // 添加小计行
+            id:"table",
+            parseData: function (res) {
                 $(res.data).each(function (i, d) {
                     d.status=status[d.status];
                 });
@@ -112,19 +124,21 @@
         table.on('tool(table)', function (obj) {
             switch (obj.event) {
                 case 'detail':
-                    $.get('order/' + obj.data.id, function (res) {
-                        var detailData = res.data.detail;
-                        var timelineData = res.data.timeline;
+                    $.get('api/order/info/' + obj.data.orderId, function (res) {
+                        let detailData = res.data.detail;
+                        console.log(detailData);
+                        // var timelineData = res.data.timeline;
                         layer.open({
                             type: 1, // 0：信息框，默认 1：页面层 2：iframe层 3：加载层 4：tips层
                             title: '订单详情',
                             content: $('#modal'),
-                            area: ['800px', 200 + 55 * (detailData.length + timelineData.length) + 'px'],
+                            // area: ['800px', 200 + 55 * (detailData.length + timelineData.length) + 'px'],
+                            area: ['800px', 800 + 55 * (detailData.length) + 'px'],
                             shadeClose: true,
                             success: function () {
                                 table.render({
                                     elem: '#table2',
-                                    data: detailData,
+                                    data: [detailData],
                                     size: 'lg',
                                     cols: [[
                                         {field: 'id', title: 'ID', width: 100, align: 'center', sort: true, edit: true},
@@ -134,9 +148,9 @@
                                         {field: 'quantity', title: '数量'},
                                     ]]
                                 });
-                                laytpl(timeline.innerHTML).render(timelineData, function (html) {
-                                    $('#timelineView').html(html);
-                                });
+                                // laytpl(timeline.innerHTML).render(timelineData, function (html) {
+                                //     $('#timelineView').html(html);
+                                // });
                             }
                         });
                     });
@@ -149,8 +163,9 @@
                     break;
                 case 'cancel':
                     layer.confirm('确认取消订单？', function (index) {
-                        $.post('pay/cancel/' + obj.data.id, function (res) {
-                            if (res.code === 0) {
+                        $.post('api/order/cancel/' + obj.data.orderId, function (res) {
+                            layer.msg(res.msg);
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });
@@ -158,8 +173,8 @@
                     break;
                 case 'receive':
                     layer.confirm('是否确认收货？', function (index) {
-                        $.post('pay/receive/' + obj.data.id, function (res) {
-                            if (res.code === 0) {
+                        $.post('api/order/receive/' + obj.data.orderId, function (res) {
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });
@@ -167,8 +182,8 @@
                     break;
                 case 'refund':
                     layer.confirm('确认申请退款？', function (index) {
-                        $.post('pay/refund/' + obj.data.id, function (res) {
-                            if (res.code === 0) {
+                        $.post('api/order/refund/' + obj.data.orderId, function (res) {
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });
