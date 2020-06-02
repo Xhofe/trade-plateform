@@ -2,12 +2,12 @@ package com.hh.service.impl;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
-import com.alipay.api.domain.AlipayTradeAppPayModel;
+import com.alipay.api.domain.AlipayTradePagePayModel;
 import com.alipay.api.domain.AlipayTradeRefundModel;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.alipay.api.request.AlipayTradeAppPayRequest;
+import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeRefundRequest;
-import com.alipay.api.response.AlipayTradeAppPayResponse;
+import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.hh.config.AliPayConfig;
 import com.hh.enums.OrderStatus;
@@ -15,10 +15,7 @@ import com.hh.enums.ResponseStatus;
 import com.hh.mapper.OrderMapper;
 import com.hh.pojo.Order;
 import com.hh.service.AliPayService;
-import com.hh.service.OrderService;
-import com.hh.util.ResultMap;
 import com.hh.util.ResultUtil;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,19 +51,20 @@ public class AliPayServiceImpl implements AliPayService {
     @Override
     public String createOrder(String orderNo, double amount, String body) throws AlipayApiException {
         //SDK已经封装掉了公共参数，这里只需要传入业务参数。以下方法为sdk的model入参方式(model和biz_content同时存在的情况下取biz_content)。
-        AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
+        AlipayTradePagePayModel model = new AlipayTradePagePayModel();
         model.setSubject(body);
         model.setOutTradeNo(orderNo);
         model.setTotalAmount(String.valueOf(amount));
         model.setProductCode("FAST_INSTANT_TRADE_PAY");//QUICK_WAP_PAY
-        model.setPassbackParams("公用回传参数，如果请求时传递了该参数，则返回给商户时会回传该参数");
+//        model.setPassbackParams("公用回传参数，如果请求时传递了该参数，则返回给商户时会回传该参数");
 
         //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
-        AlipayTradeAppPayRequest ali_request = new AlipayTradeAppPayRequest();
+        AlipayTradePagePayRequest ali_request = new AlipayTradePagePayRequest();
         ali_request.setBizModel(model);
 //        ali_request.setNotifyUrl(alipayConfig.getNotifyUrl());// 回调地址
         ali_request.setNotifyUrl(alipayConfig.getNotifyUrl());// 回调地址
-        AlipayTradeAppPayResponse ali_response = alipayClient.pageExecute(ali_request);//"GET"直接获取URL
+        AlipayTradePagePayResponse ali_response = alipayClient.pageExecute(ali_request);//"GET"直接获取URL
+//        AlipayTradeAppPayResponse ali_response = alipayClient.pageExecute(ali_request,"GET");
         //就是orderString 可以直接给客户端请求，无需再做处理。
         return ali_response.getBody();
     }
