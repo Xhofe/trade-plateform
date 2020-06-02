@@ -20,6 +20,6 @@ document.write("            <a href=\"javascript:void(0);\">商品资讯<\/a>");
 document.write("            <span>|<\/span>");
 document.write("            <a href=\"javascript:void(0);\">关于货源<\/a>");
 document.write("        <\/p>");
-document.write("        <p>二手平台版权所有 &copy; 2020<\/p>");
+document.write("        <p>个人商城版权所有 &copy; 2020<\/p>");
 document.write("    <\/div>");
 document.write("<\/div>");

@@ -5,6 +5,7 @@ document.write("                <div class=\"inner-cont2\">");
 document.write("                    <a href=\"index.html\">商店主页<\/a>");
 document.write("                    <a href=\"cart.html\">我的收藏<\/a>");
 document.write("                    <a href=\"order.html\">我的订单<\/a>");
+document.write("                    <a href=\"chart.html\">咨询客服<\/a>");
 document.write("                <\/div>");
 document.write("            <\/div>");
 document.write("        <\/div>");
