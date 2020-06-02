@@ -22,7 +22,7 @@ layui.use(['jquery', 'layer'], function () {
                     if (res.code === 200) {
                         // layer.msg(res.msg);
                     } else {
-                        layer.msg(JSON.stringify(res));
+                        // layer.msg(JSON.stringify(res));
                     }
                 } catch (e) {
                     // NONE

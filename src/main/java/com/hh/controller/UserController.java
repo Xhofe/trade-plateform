@@ -36,6 +36,16 @@ public class UserController extends BaseController{
         this.mailService = mailService;
     }
 
+    @PostMapping("logout")
+    public Object logout(HttpServletRequest request,HttpServletResponse response){
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null) {
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        }
+        CookieUtil.setCookie(response,"Authorization",null);
+        return ResultUtil.ok();
+    }
+
     /**
      * 登陆
      */

@@ -120,7 +120,7 @@
                     collectId=res.data.collectId;
                 }
             }else {
-                layer.msg(res.msg);
+                // layer.msg(res.msg);
             }
         });
 
@@ -132,7 +132,7 @@
                         $('#hasCollect').text("收藏");
                         hasCollect=false;
                     }else {
-                        layer.mag(res.msg);
+                        layer.msg(res.msg);
                     }
                 })
             }else {
@@ -143,7 +143,7 @@
                         hasCollect=true;
                         collectId=res.data;
                     }else {
-                        layer.mag(res.msg);
+                        layer.msg(res.msg);
                     }
                 })
             }

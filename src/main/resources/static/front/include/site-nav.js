@@ -5,6 +5,10 @@ function ok() {
 function logout() {
     layui.data('token', null);
     layui.data('user', null);
+    $=layui.$;
+    $.post('api/user/logout',function (res) {
+        layer.msg(res.msg);
+    });
     window.location.href = "index.html";
 }
 
