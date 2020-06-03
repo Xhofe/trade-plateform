@@ -9,13 +9,21 @@ import com.hh.pojo.UserDetails;
 import com.hh.service.GoodsService;
 import com.hh.enums.ResponseStatus;
 import com.hh.util.ResultUtil;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/goods")
@@ -133,5 +141,39 @@ public class ReleaseGoodsController extends BaseController {
         Goods goods=goodsService.getGoodsById(id);
         if (goods==null)return ResultUtil.fail(ResponseStatus.NO_GOODS);
         return ResultUtil.ok(goods);
+    }
+
+
+    @Value("${user.file.path}")
+    private String imgFilePath;
+
+//    @Value("${user.file.name}")
+//    private String imgName;
+
+    @PostMapping("uploadImg")
+    public Object uploadImg(@RequestParam(value="file") MultipartFile file){
+        System.out.println("img file path is"+imgFilePath);
+        if(!file.isEmpty()){
+            try {
+                JSONObject res = new JSONObject();
+                JSONObject resUrl = new JSONObject();
+                String filename = UUID.randomUUID().toString().replaceAll("-", "");
+                String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+                String filenames = filename + "." + ext;
+                String pathname = imgFilePath + filenames;
+                file.transferTo(new File(pathname));
+                resUrl.put("src", filenames);
+                res.put("msg", "");
+                res.put("code", 0);
+                res.put("data", resUrl);
+                return res;
+            }catch (IOException e){
+                e.printStackTrace();
+                return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+            }
+        }
+        else{
+            return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+        }
     }
 }

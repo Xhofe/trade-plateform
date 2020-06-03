@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -302,9 +302,19 @@
 
         upload.render({
             elem: '#upload',
-            url: 'upload',
+            url: '/api/goods/uploadImg',
+            // acceptMime:"image/*",
+            before:function(obj){
+                obj.preview(function (index, file, result) {
+                    $('#icon').attr('src', result); //图片链接（base64）
+                });
+            },
             done: function (res) {
-                $('#icon').attr('src', res.data); // 异步 + cdn
+                alert("上传成功...");
+                $('#icon').attr('src', "img/"+res.data.src); // 异步 + cdn
+            },
+            error:function(res){
+                alert("上传错误...");
             }
         });
     });
