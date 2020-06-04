@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hh.mapper.MessageMapper">
 
-    <select id="getMessageByUserId" resultType="message">
+    <select id="getMessageByIds" resultType="message">
         select *
         from message
         where (buy_id=${buyId} and sell_id=${sellId});
@@ -13,5 +13,11 @@
         insert into message (buy_id, sell_id, message, time)
         values (#{buyId},#{sellId},#{message},#{time});
     </insert>
+
+    <select id="getMessageByUserId" parameterType="int" resultType="message">
+        select *
+        from message
+        where buy_id=#{userId};
+    </select>
 
 </mapper>

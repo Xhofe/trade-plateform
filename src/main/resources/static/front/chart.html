@@ -120,7 +120,13 @@
         var TalkWords = document.getElementById("talkwords");
         var TalkSub = document.getElementById("talksub");
 
-        let send=1;
+        function sendMessage(str){
+            $("#words").append('<div class="btalk"><span>您 :' + str + '</span></div>');
+        }
+
+        function reciveMessage(str){
+            $("#words").append('<div class="atalk"><span>客服 :' + str + '</span></div>');
+        }
 
         TalkSub.onclick = function () {
             //定义空字符串
@@ -130,21 +136,44 @@
                 alert("消息不能为空");
                 return;
             }
-            if (send === 0) {
-                //如果Who.value为0n那么是 A说
-                str = '<div class="atalk"><span>A说 :' + TalkWords.value + '</span></div>';
-            } else {
-                str = '<div class="btalk"><span>B说 :' + TalkWords.value + '</span></div>';
-            }
-            Words.innerHTML = Words.innerHTML + str;
+            // if (send === 0) {
+            //     //如果Who.value为0n那么是 A说
+            //     str = '<div class="atalk"><span>A说 :' + TalkWords.value + '</span></div>';
+            // } else {
+            //     str = '<div class="btalk"><span>B说 :' + TalkWords.value + '</span></div>';
+            // }
+            // Words.innerHTML = Words.innerHTML + str;
+            $.post("api/message/send",JSON.stringify({message:TalkWords.value}),function (res) {
+                if (res.code===200){
+                    sendMessage(TalkWords.value);
+                }else {
+                    layer.msg(res.msg);
+                }
+            });
             Words.scrollTop = Words.scrollHeight;
         };
 
-        function update() {
+        function updateMessage() {
             $.get("api/message/list",function (res) {
-
+                if (res.code===200){
+                    $("#words").html("");
+                    let messages=res.data;
+                    for (let i=0;i<messages.length;i++){
+                        let message=messages[i];
+                        if (message.send===1){
+                            sendMessage(message.message);
+                        }else {
+                            reciveMessage(message.message);
+                        }
+                    }
+                }else {
+                    layer.msg(res.msg);
+                }
             });
         }
+        updateMessage();
+
+        let intervalId=self.setInterval(updateMessage,1000);
 
         $('.inner-cont2 a').each(function (i, item) {
             var url = window.location.pathname;

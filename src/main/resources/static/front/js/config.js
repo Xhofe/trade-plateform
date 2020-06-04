@@ -1,5 +1,5 @@
-// var API = "http://localhost:7980/";
-var API ="https://personal-mall.jxdgogogo.xyz/";
+var API = "http://localhost:7980/";
+// var API ="https://personal-mall.jxdgogogo.xyz/";
 layui.use(['jquery', 'layer'], function () {
     var $ = layui.jquery;
     var layer = layui.layer;

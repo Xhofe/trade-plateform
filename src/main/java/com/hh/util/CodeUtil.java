@@ -1,5 +1,7 @@
 package com.hh.util;
 
+import org.springframework.context.annotation.Bean;
+
 import java.util.Random;
 
 public class CodeUtil {
@@ -11,4 +13,5 @@ public class CodeUtil {
         }
         return str.toString();
     }
+
 }

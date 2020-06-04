@@ -1,10 +1,14 @@
 package com.hh.mapper;
 
 import com.hh.pojo.Message;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Mapper
+@Repository
 public interface MessageMapper {
     /**
      * 获取两个人的对话
@@ -12,7 +16,7 @@ public interface MessageMapper {
      * @param user2Id 用户2
      * @return 对话列表
      */
-    List<Message> getMessageByUserId(@Param("buyId") int user1Id, @Param("sellId") int user2Id);
+    List<Message> getMessageByIds(@Param("buyId") int user1Id, @Param("sellId") int user2Id);
 
     /**
      * 添加一条消息
@@ -20,4 +24,6 @@ public interface MessageMapper {
      * @return 添加的记录条数
      */
     int addMessage(Message message);
+
+    List<Message> getMessageByUserId(int userId);
 }
