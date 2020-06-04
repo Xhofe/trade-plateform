@@ -62,7 +62,8 @@ public class AliPayServiceImpl implements AliPayService {
         AlipayTradePagePayRequest ali_request = new AlipayTradePagePayRequest();
         ali_request.setBizModel(model);
 //        ali_request.setNotifyUrl(alipayConfig.getNotifyUrl());// 回调地址
-        ali_request.setNotifyUrl(alipayConfig.getNotifyUrl());// 回调地址
+        ali_request.setNotifyUrl(alipayConfig.getNotifyUrl());// 异步通知
+        ali_request.setReturnUrl(alipayConfig.getReturnUrl());
         AlipayTradePagePayResponse ali_response = alipayClient.pageExecute(ali_request);//"GET"直接获取URL
 //        AlipayTradeAppPayResponse ali_response = alipayClient.pageExecute(ali_request,"GET");
         //就是orderString 可以直接给客户端请求，无需再做处理。

@@ -60,7 +60,7 @@ public class AliPayController extends BaseController {
             // 2、创建支付宝订单
             String orderStr = aliPayService.createOrder(String.valueOf(orderId), amount, body);
 //            return ResultUtil.ok(orderStr);
-            log.info(orderStr);
+//            log.info(orderStr);
             return orderStr;
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -87,8 +87,10 @@ public class AliPayController extends BaseController {
              */
             boolean notify = aliPayService.notify(tradeStatus, outTradeNo, tradeNo);
             if(notify){
+                log.info(outTradeNo+"订单支付成功");
                 return "success";
             }
+            log.info(outTradeNo+"订单支付失败");
         }
         return "fail";
     }

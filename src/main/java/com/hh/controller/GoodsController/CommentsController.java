@@ -36,8 +36,6 @@ public class CommentsController extends BaseController {
     public Object getComments(@PathVariable int goodsId){
         try {
             List<Comments> comments= commentsService.getCommentsByGoodsId(goodsId);
-            System.out.println(goodsId);
-            System.out.println(comments);
             return ResultUtil.ok(comments);
         }catch (Exception e){
             return ResultUtil.error();
