@@ -121,6 +121,7 @@
                     // $('#header-avatar').attr('src', data.field.avatar);
                     // local storage
                     layui.data('user', {key: 'SUCCESS', value: data.field});
+                    layer.msg("修改成功");
                 }else {
                     layer.msg(res.msg);
                 }

@@ -198,6 +198,7 @@
                 case 'receive':
                     layer.confirm('是否确认收货？', function (index) {
                         $.post('api/order/receive/' + obj.data.orderId, function (res) {
+                            layer.msg(res.msg);
                             if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
@@ -207,6 +208,7 @@
                 case 'refund':
                     layer.confirm('确认申请退款？', function (index) {
                         $.post('api/order/refund/' + obj.data.orderId, function (res) {
+                            layer.msg(res.msg);
                             if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
