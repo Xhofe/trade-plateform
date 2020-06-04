@@ -145,6 +145,14 @@
 
             });
         }
+
+        $('.inner-cont2 a').each(function (i, item) {
+            var url = window.location.pathname;
+            var href = $(item).attr('href');
+            if (url.search(href) !== -1) {
+                $(item).addClass('active');
+            }
+        });
     });
 </script>
 </body>

@@ -27,4 +27,10 @@ public class CommentsServiceImpl implements CommentsService {
     public int addGoodsComment(Comments comments) {
         return mapper.addGoodsComments(comments);
     }
+
+    @Override
+    public boolean hasComment(int id) {
+        Comments comments=mapper.getCommentById(id);
+        return comments!=null;
+    }
 }

@@ -29,4 +29,6 @@ public interface CommentsMapper {
      * @return 被操作的记录条数
      */
     int deleteComments(int id);
+
+    Comments getCommentById(int orderId);
 }

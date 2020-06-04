@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -31,10 +32,12 @@ public class CommentsController extends BaseController {
         this.orderService = orderService;
     }
 
-    @GetMapping("{goodsId}")
-    public Object getComments(@PathVariable String goodsId){
+    @GetMapping("/{goodsId}")
+    public Object getComments(@PathVariable int goodsId){
         try {
-            List<Comments> comments= commentsService.getCommentsByGoodsId(Integer.parseInt(goodsId));
+            List<Comments> comments= commentsService.getCommentsByGoodsId(goodsId);
+            System.out.println(goodsId);
+            System.out.println(comments);
             return ResultUtil.ok(comments);
         }catch (Exception e){
             return ResultUtil.error();
@@ -47,12 +50,16 @@ public class CommentsController extends BaseController {
         if (userDetails==null){
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         }
+        if (commentsService.hasComment(comments.getOrderId())){
+            return ResultUtil.fail(ResponseStatus.HAS_COMMENTS);
+        }
         Order order=orderService.getOrderById(comments.getOrderId());
         if (order==null||order.getStatus()!= OrderStatus.FINISH.getCode()){
             return ResultUtil.fail(ResponseStatus.NO_BUY);
         }
         comments.setUserId(order.getBuyUserId());
         comments.setGoodsId(order.getGoodsId());
+        comments.setTime(new Timestamp(System.currentTimeMillis()));
         int res= commentsService.addGoodsComment(comments);
         if (res!=1){
             return ResultUtil.error();

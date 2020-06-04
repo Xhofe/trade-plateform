@@ -68,7 +68,7 @@
                         <p>这是一件商品</p>
                     </div>
                 </div>
-                <h4>评论</h4>
+                <h4 id="comments">评论</h4>
                 <div class="item">
 
                 </div>
@@ -107,7 +107,15 @@
 
         // 获取商品评论
         $.get('api/goods/comments/'+goodsId,function (res) {
-            console.log(res);
+            // console.log(res);
+            if (res.code===200){
+                let comments=res.data;
+                for (let i = 0; i < comments.length; i++) {
+                    $('#comments').append("<div class='item'><p>"+comments[i].time+"</p><b>"+comments[i].comment+"</b></div>");
+                }
+            }else {
+                layer.msg(res.msg);
+            }
         });
 
         //是否收藏
