@@ -5,10 +5,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hh.controller.BaseController;
 import com.hh.pojo.Goods;
+import com.hh.pojo.Type;
 import com.hh.pojo.UserDetails;
 import com.hh.service.GoodsService;
 import com.hh.enums.ResponseStatus;
+import com.hh.util.PathUtil;
 import com.hh.util.ResultUtil;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +39,7 @@ public class ReleaseGoodsController extends BaseController {
         this.goodsService = goodsService;
     }
 
+    @ApiOperation("获取分类列表")
     @GetMapping("/category")
     public Object getCategory() {
         return ResultUtil.ok(goodsService.getAllType());
@@ -144,11 +148,9 @@ public class ReleaseGoodsController extends BaseController {
     }
 
 
-    @Value("${user.file.path}")
+    @Value("${file.img.path}")
     private String imgFilePath;
 
-//    @Value("${user.file.name}")
-//    private String imgName;
 
     @PostMapping("uploadImg")
     public Object uploadImg(@RequestParam(value="file") MultipartFile file){
@@ -160,7 +162,7 @@ public class ReleaseGoodsController extends BaseController {
                 String filename = UUID.randomUUID().toString().replaceAll("-", "");
                 String ext = FilenameUtils.getExtension(file.getOriginalFilename());
                 String filenames = filename + "." + ext;
-                String pathname = imgFilePath + filenames;
+                String pathname = PathUtil.getRootPath() +imgFilePath+ filenames;
                 file.transferTo(new File(pathname));
                 resUrl.put("src", filenames);
                 res.put("msg", "");
@@ -176,4 +178,19 @@ public class ReleaseGoodsController extends BaseController {
             return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
         }
     }
+
+    @ApiOperation("获取商品列表")
+    @GetMapping("/list")
+    @ResponseBody
+    public Object list() {
+        Map<String,Object> res = new HashMap<>();
+
+        List<Goods> goodsList = goodsService.getAllGoods();
+        res.put("code",0);
+        res.put("msg","成功");
+        res.put("count",goodsList.size());
+        res.put("data",goodsList);
+        return res;
+    }
+
 }

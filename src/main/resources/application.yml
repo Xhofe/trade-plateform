@@ -43,8 +43,8 @@ alipay:
   notifyUrl: https://personal-mall.jxdgogogo.xyz/api/alipay/notify
   returnUrl: https://personal-mall.jxdgogogo.xyz/front/order.html
 
-user:
-  dir: D:\OneDrive\Desktop\
-  file:
-    path: D:\OneDrive\Desktop\trade-plateform\src\main\resources\static\admin\img\
-    fileName: springboot.jpg
+#user:
+#  dir: D:\OneDrive\Desktop\
+#  file:
+#    path: D:\OneDrive\Desktop\trade-plateform\src\main\resources\static\admin\img\
+#    fileName: springboot.jpg
