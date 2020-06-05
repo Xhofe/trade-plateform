@@ -115,7 +115,7 @@
                 {field: 'num', title: '库存', edit: 'text'},
                 {
                     field: 'typeId', title: '分类', width: 200, templet: function (d) {
-                        return '<div id="XM-' + d.id + '" ></div>'
+                        return '<div id="XM-' + d.goodsId + '" ></div>'
                     }
                 },
                 {field: 'status', title: '状态', width: 100, templet: '#switchTpl'},
@@ -134,7 +134,7 @@
                     var categoryData = result.data;
                     res.data.forEach((item, index) => {
                         xmSelect.render({
-                            el: '#XM-' + item.id,
+                            el: '#XM-' + item.goodsId,
                             model: {icon: 'hidden', label: {type: 'text'}},
                             radio: true,
                             clickClose: true,
@@ -149,10 +149,21 @@
                             on: function (data) {
                                 if (data.isAdd) {
                                     var rowData = table.cache['table'][index];
-                                    rowData['category'] = data.change[0].id; // 更新缓存
-                                    $.put('product/' + rowData.id, rowData, function (res) {
-                                        if (res.code === 0) {
-                                            layer.msg(res.msg);
+                                    rowData['typeId'] = data.change[0].typeId; // 更新缓存
+                                    // $.put('api/goods/' + rowData.id, rowData, function (res) {
+                                    //     if (res.code === 0) {
+                                    //         layer.msg(res.msg);
+                                    //     }
+                                    // })
+                                    $.ajax({
+                                        url:"api/goods/updateGoods",
+                                        data:JSON.stringify(rowData),
+                                        contentType:"application/json",
+                                        type:"post",
+                                        success:function(data){
+                                            if(data.code == 0){
+
+                                            }
                                         }
                                     })
                                 }
@@ -190,14 +201,14 @@
                             expandedKeys: true,
                         },
                         data: categoryData,
-                        prop: {value: 'id'},
+                        prop: {name:'typeName',value: 'typeId'},
                         on: function (data) {
                             table.reload('table', {
-                                url: 'product/list',
+                                url: 'api/goods/list',
                                 page: {
                                     curr: 1 // 重新从第一页开始
                                 },
-                                where: {category: data.change[0].id, keyword: ''} // 搜索分类
+                                where: {typeId: data.change[0].typeId, keyword: ''} // 搜索分类
                             });
                         }
                     });
@@ -209,7 +220,7 @@
                         model: {icon: 'hidden', label: {type: 'text'}},
                         clickClose: true,
                         data: [], // none
-                        prop: {value: 'id'},
+                        prop: {name:'typeName',value: 'typeId'},
                         filterable: true,
                         create: function (val, arr) {
                             console.log(arr);
@@ -219,11 +230,11 @@
                         },
                         on: function (data) {
                             table.reload('table', {
-                                url: 'product/list',
+                                url: 'api/goods/list',
                                 page: {
                                     curr: 1 // 重新从第一页开始
                                 },
-                                where: {keyword: data.change[0].name, category: ''} // 搜索关键词
+                                where: {keyword: data.change[0].keyword} // 搜索关键词
                             });
                         }
                     });
@@ -265,13 +276,25 @@
         table.on('edit(table)', function (obj) {
             // 记录编辑之前的值
             var old = $(this).prev().text();
-            $.put('product/' + obj.data.id, obj.data, function (res) {
-                if (res.code !== 0) {
-                    // 修改回来
-                    $(obj.tr.selector + ' td[data-field="' + obj.field + '"] input').val(old);
-                    $(obj.tr.selector + ' td[data-field="' + obj.field + '"] div').text(old);
+            // $.put('api/goods/updateGoods' + obj.data.id, obj.data, function (res) {
+            //     if (res.code !== 0) {
+            //         // 修改回来
+            //         $(obj.tr.selector + ' td[data-field="' + obj.field + '"] input').val(old);
+            //         $(obj.tr.selector + ' td[data-field="' + obj.field + '"] div').text(old);
+            //     }
+            // });
+            $.ajax({
+                url:"api/goods/updateGoods",
+                data:JSON.stringify(obj.data),
+                contentType:"application/json",
+                type:"post",
+                success:function(data){
+                    if(data.code != 0){
+                        $(obj.tr.selector + ' td[data-field="' + obj.field + '"] input').val(old);
+                        $(obj.tr.selector + ' td[data-field="' + obj.field + '"] div').text(old);
+                    }
                 }
-            });
+            })
         });
 
         // switch 事件
@@ -279,9 +302,26 @@
             var index = $(data.elem).parents('tr').data('index');
             var rowData = table.cache['table'][index];
             rowData['status'] = data.elem.checked; // 更新缓存
-            $.put('product/' + rowData.id, rowData, function (res) {
-                if (res.code !== 0) {
-                    // NONE
+            if(rowData.status == true)
+                rowData.status=1;
+            else
+                rowData.status = 0;
+
+            delete rowData.LAY_TABLE_INDEX;
+            // $.put('api/goods/updateGoods', rowData, function (res) {//+ rowData.id
+            //     if (res.code !== 0) {
+            //         // NONE
+            //     }
+            // })
+            $.ajax({
+                url:"api/goods/updateGoods",
+                data:JSON.stringify(rowData),
+                contentType:"application/json",
+                type:"post",
+                success:function(data){
+                    if(data.code != 0){
+
+                    }
                 }
             })
         });
@@ -292,7 +332,7 @@
                 data.field.status = "0";
             else
                 data.field.status="1";
-            data.field.imgurl = $('#icon')[0].src; // 添加图标
+            data.field.imgurl = $('#icon')[0].src.split('/').slice(4).join('/'); // 添加图标
             data.field.pop = "1";
             data.field.secondPrice = data.field.price;
             $.ajax({

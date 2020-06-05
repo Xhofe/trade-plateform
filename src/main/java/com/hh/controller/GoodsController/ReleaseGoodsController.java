@@ -23,10 +23,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/goods")
@@ -182,10 +179,19 @@ public class ReleaseGoodsController extends BaseController {
     @ApiOperation("获取商品列表")
     @GetMapping("/list")
     @ResponseBody
-    public Object list() {
+    public Object list(String typeId,String keyword) {
         Map<String,Object> res = new HashMap<>();
 
-        List<Goods> goodsList = goodsService.getAllGoods();
+        List<Goods> _goodsList = goodsService.getAllGoods();
+        List<Goods> goodsList = new ArrayList<>();
+        if(typeId != null){
+            for (Goods goods:_goodsList){
+                if(goods.getTypeId() == Integer.parseInt(typeId))
+                    goodsList.add(goods);
+            }
+        }
+        else
+            goodsList = _goodsList;
         res.put("code",0);
         res.put("msg","成功");
         res.put("count",goodsList.size());
