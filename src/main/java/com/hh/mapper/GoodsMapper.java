@@ -58,4 +58,12 @@ public interface GoodsMapper {
      * @return 分类
      */
     List<Type> getAllType();
+
+
+    /**
+     * 添加分类
+     * @param type
+     * @return
+     */
+    int addType(Type type);
 }

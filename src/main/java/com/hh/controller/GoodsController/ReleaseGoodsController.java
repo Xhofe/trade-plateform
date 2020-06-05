@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.lang.model.element.TypeElement;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -38,8 +39,22 @@ public class ReleaseGoodsController extends BaseController {
 
     @ApiOperation("获取分类列表")
     @GetMapping("/category")
-    public Object getCategory() {
-        return ResultUtil.ok(goodsService.getAllType());
+    @ResponseBody
+    public Object category(String typeId,HttpServletRequest request) {
+//        UserDetails userDetails = getUserDetails(request);
+//        if(userDetails == null)
+//            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        if(typeId == null || typeId == "")
+            return ResultUtil.ok(goodsService.getAllType());
+        else{
+            List<Type> _typeList = goodsService.getAllType();
+            List<Type> typeList = new ArrayList<>();
+            for(Type type:typeList){
+                if(type.getTypeId() == Integer.parseInt(typeId))
+                    typeList.add(type);
+            }
+            return ResultUtil.ok(typeList);
+        }
     }
 
     @PostMapping("/addGoods")

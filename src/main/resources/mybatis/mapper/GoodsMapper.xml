@@ -84,4 +84,8 @@
         from type;
     </select>
 
+    <insert id="addType" parameterType="type">
+        insert into type(type_id,type_name)
+        values (#{typeId},#{typeName});
+    </insert>
 </mapper>

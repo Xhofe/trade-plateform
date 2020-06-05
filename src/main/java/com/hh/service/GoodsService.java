@@ -2,6 +2,7 @@ package com.hh.service;
 
 import com.hh.pojo.Goods;
 import com.hh.pojo.Type;
+import com.sun.deploy.security.ValidationState;
 
 import java.util.List;
 
@@ -25,6 +26,13 @@ public interface GoodsService {
      */
     public List<Type> getAllType();
 
+    /**
+     * 添加分类
+     * @param type
+     * @return
+     */
+    public int addType(Type type);
+
     public List<Goods> searchGoods(Map map);
 
     /**
@@ -34,4 +42,5 @@ public interface GoodsService {
     public List<Goods> getAllGoods();
 
     public Goods getGoodsById(int goodsId);
+
 }

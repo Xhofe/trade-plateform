@@ -44,8 +44,8 @@
             },
             cols: [
                 {type: 'numbers'},
-                {field: 'id', title: 'ID', width: 80, align: 'center', sort: true},
-                {field: 'name', title: '分类', edit: 'text'},
+                {field: 'typeId', title: 'ID', width: 80, align: 'center', sort: true},
+                {field: 'typeName', title: '分类', edit: 'text'},
                 {field: 'createTime', title: '创建时间'},
                 {field: 'updateTime', title: '修改时间'},
                 {title: '操作', width: 200, align: 'center', toolbar: '#barTpl'}
@@ -59,11 +59,17 @@
             },
             reqData: function (data, callback) {
                 // 通过callback方法回调数据
-                var id = data ? data.id : '';
-                $.get('category?id=' + id, data, function (res) {
-                    if (!res.data) return;
+                //var id = data ? data.id : '';
+                var id = data == undefined? '':data.id;
+                // $.get('category?id=' + id, data, function (res) {
+                //     if (!res.data) return;
+                //     callback(res.data);
+                // });
+                $.get('api/goods/category?typeId='+id,data,function (res) {
+                    if(!res.data)
+                        return;
                     callback(res.data);
-                });
+                })
             }
         });
 
@@ -100,9 +106,21 @@
         });
 
         $('#addRoot').click(function () {
-            $.post('category', {name: '未命名', pid: 0}, function (res) {
-                if (res.code === 0) {
-                    tb.refresh(); // 成功-刷新(异步模式)
+            // $.post('api/goods/type/addRoot', {typeName: '未命名', typeId: 0}, function (res) {
+            //     if (res.code === 0) {
+            //         tb.refresh(); // 成功-刷新(异步模式)
+            //     }
+            // },"json");
+
+            $.ajax({
+                url:"api/goods/type/addRoot",
+                contentType:'application/json',
+                data:JSON.stringify({typeName:'未命名',typeId:0}),
+                type:'post',
+                success:function(data){
+                    if (data.code === 0) {
+                        tb.refresh(); // 成功-刷新(异步模式)
+                    }
                 }
             });
         })

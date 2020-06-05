@@ -49,6 +49,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public int addType(Type type) {
+        return goodsMapper.addType(type);
+    }
+
+    @Override
     public List<Goods> getAllGoods() {
         return goodsMapper.getAllGoods();
     }
