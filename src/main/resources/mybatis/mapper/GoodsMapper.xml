@@ -88,4 +88,10 @@
         insert into type(type_id,type_name)
         values (#{typeId},#{typeName});
     </insert>
+
+    <select id="getGoodsByTypeId" parameterType="int" resultType="goods">
+        select *
+        from goods
+        where type_id=#{typeId};
+    </select>
 </mapper>

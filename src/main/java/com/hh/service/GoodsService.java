@@ -2,7 +2,6 @@ package com.hh.service;
 
 import com.hh.pojo.Goods;
 import com.hh.pojo.Type;
-import com.sun.deploy.security.ValidationState;
 
 import java.util.List;
 
@@ -42,5 +41,7 @@ public interface GoodsService {
     public List<Goods> getAllGoods();
 
     public Goods getGoodsById(int goodsId);
+
+    public List<Goods> getGoodsByType(int typeId);
 
 }

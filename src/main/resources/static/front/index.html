@@ -91,7 +91,7 @@
                 limit: 12,
                 jump: function (obj, first) {
                     if (!first) { // 首次不执行
-                        $.get('api/goods/product?limit=12&page=' + obj.curr, function (res) {
+                        $.get('api/goods/product?limit=12&page=' + obj.curr+para, function (res) {
                             init(res.data);
                         });
                     }

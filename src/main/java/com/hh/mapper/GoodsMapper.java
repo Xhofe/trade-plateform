@@ -66,4 +66,6 @@ public interface GoodsMapper {
      * @return
      */
     int addType(Type type);
+
+    List<Goods> getGoodsByTypeId(int typeId);
 }

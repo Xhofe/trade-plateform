@@ -3,6 +3,7 @@ package com.hh.controller.GoodsController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
 import com.hh.controller.BaseController;
 import com.hh.pojo.Goods;
 import com.hh.pojo.Type;
@@ -12,6 +13,7 @@ import com.hh.enums.ResponseStatus;
 import com.hh.util.PathUtil;
 import com.hh.util.ResultUtil;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,12 +22,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.lang.model.element.TypeElement;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/goods")
 public class ReleaseGoodsController extends BaseController {
@@ -144,11 +148,30 @@ public class ReleaseGoodsController extends BaseController {
     }
 
     @GetMapping("product")
-    public Object product() {
-        List<Goods> goodsList = goodsService.getAllGoods();
+    public Object product(@PathParam("type")Integer type,
+                          @PathParam("limit") Integer limit,
+                          @PathParam("page") Integer page,
+                          @PathParam("keyword")String keyword) {
+        log.info("参数为type={},limit={},page={},keyword={}",type,limit,page,keyword);
         Map<String, Object> res = new HashMap<>();
-        res.put("count", String.valueOf(goodsList.size()));
-        res.put("goods", goodsList);
+        List<Goods> goodsList;
+        if (type!=null){
+            goodsList=goodsService.getGoodsByType(type);
+        }else if(keyword!=null){
+            Map<String ,Object> para=new HashMap<>();
+            para.put("keywords",Arrays.asList(keyword.split(" ")));
+            goodsList=goodsService.searchGoods(para);
+        }else {
+            goodsList=goodsService.getAllGoods();
+        }
+        int count=goodsList.size();
+        log.info("搜索到"+count+"件商品");
+        res.put("count", String.valueOf(count));
+        if (count>0){
+            res.put("goods", Lists.partition(goodsList,limit).get(page-1));
+        }else {
+            res.put("goods",new ArrayList<>(0));
+        }
         return ResultUtil.ok(res);
     }
 
