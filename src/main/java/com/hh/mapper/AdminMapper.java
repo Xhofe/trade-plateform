@@ -24,6 +24,13 @@ public interface AdminMapper {
     Admin getAdminById(int id);
 
     /**
+     * 根据email获取管理员
+     * @param email
+     * @return
+     */
+    Admin getAdminByEmail(String email);
+
+    /**
      * 添加管理员
      * @param admin 管理员
      * @return 添加的记录条数
@@ -43,4 +50,6 @@ public interface AdminMapper {
      * @return 被操作的记录条数
      */
     int updateAdmin(Admin admin);
+
+
 }

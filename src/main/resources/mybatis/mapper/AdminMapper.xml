@@ -5,6 +5,12 @@
     <select id="getAllAdmins" resultType="admin">
         select * from admin;
     </select>
+
+    <select id="getAdminByEmail" resultType="admin" parameterType="string">
+        select *
+        from admin where admin_email=#{email};
+    </select>
+
     <select id="getAdminById" resultType="admin" parameterType="int">
         select *
         from admin where admin_id=${id};

@@ -1,5 +1,6 @@
 package com.hh.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hh.enums.ResponseStatus;
 import com.hh.pojo.Goods;
 import com.hh.pojo.Order;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +82,11 @@ public class OrderController extends BaseController {
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         }
         List<Order> orders=orderService.getOrdersByUserId(userDetails.getUserId());
-        return ResultUtil.ok(orders);
+        JSONObject res = new JSONObject();
+        res.put("msg","");
+        res.put("code",0);
+        res.put("data",orders);
+        return res;
     }
 
     @PostMapping("cancel/{id}")

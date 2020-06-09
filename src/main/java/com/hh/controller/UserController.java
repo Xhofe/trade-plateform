@@ -70,7 +70,7 @@ public class UserController extends BaseController{
 
     @PostMapping("/getCode")
     public Object getCode(@RequestBody Map<String ,String > map, HttpSession session){
-        String email=map.get("email");
+            String email=map.get("email");
         if (email==null){
             return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
         }
