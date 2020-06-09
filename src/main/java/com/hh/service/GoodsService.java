@@ -10,38 +10,39 @@ import java.util.Map;
 
 public interface GoodsService {
     //添加
-    public int addGood(Goods goods);
+     int addGood(Goods goods);
 
     //更新
-    public int updateGood(Goods goods);
+     int updateGood(Goods goods);
 
     //删除
-    public int deleteGood(int goodsId);
+     int deleteGood(int goodsId);
 
 
     /**
      * 获取所有分类
      * @return 分类
      */
-    public List<Type> getAllType();
+     List<Type> getAllType();
 
     /**
      * 添加分类
      * @param type
      * @return
      */
-    public int addType(Type type);
+     int addType(Type type);
 
-    public List<Goods> searchGoods(Map map);
+     List<Goods> searchGoods(Map map);
 
     /**
      * 获取所有Goods
      * @return Goods
      */
-    public List<Goods> getAllGoods();
+     List<Goods> getAllGoods();
 
-    public Goods getGoodsById(int goodsId);
+     Goods getGoodsById(int goodsId);
 
-    public List<Goods> getGoodsByType(int typeId);
+     List<Goods> getGoodsByType(int typeId);
 
+     List<Goods> getGoodsOrderByPop();
 }

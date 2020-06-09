@@ -68,4 +68,6 @@ public interface GoodsMapper {
     int addType(Type type);
 
     List<Goods> getGoodsByTypeId(int typeId);
+
+    List<Goods> getGoodsOrderByTop();
 }

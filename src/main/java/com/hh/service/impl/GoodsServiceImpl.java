@@ -39,6 +39,11 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     @Override
+    public List<Goods> getGoodsOrderByPop() {
+        return goodsMapper.getGoodsOrderByTop();
+    }
+
+    @Override
     public List<Goods> searchGoods(Map map) {
         return goodsMapper.SearchGoods(map);
     }

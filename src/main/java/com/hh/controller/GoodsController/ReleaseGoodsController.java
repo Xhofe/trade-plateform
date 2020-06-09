@@ -214,6 +214,17 @@ public class ReleaseGoodsController extends BaseController {
         }
     }
 
+    @GetMapping("/recommend")
+    public Object recommend(){
+        try {
+            List<Goods> goodsList=goodsService.getGoodsOrderByPop();
+            return ResultUtil.ok(Lists.partition(goodsList,8).get(0));
+        }catch (Exception e){
+            log.error(e.toString());
+            return ResultUtil.error();
+        }
+    }
+
     @ApiOperation("获取商品列表")
     @GetMapping("/list")
     @ResponseBody

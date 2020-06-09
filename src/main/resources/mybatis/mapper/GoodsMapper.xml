@@ -94,4 +94,10 @@
         from goods
         where type_id=#{typeId};
     </select>
+
+    <select id="getGoodsOrderByTop" resultType="goods">
+        select *
+        from goods
+        order by pop;
+    </select>
 </mapper>

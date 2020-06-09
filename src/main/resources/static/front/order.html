@@ -123,6 +123,7 @@
             parseData: function (res) {
                 $(res.data).each(function (i, d) {
                     d.status=status[d.status];
+                    d.time=new Date(d.time).format("yyyy-MM-dd hh:mm:ss");
                 });
                 // res.count=res.data.length;
                 // console.log(res);
