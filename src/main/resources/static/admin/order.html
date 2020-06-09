@@ -75,18 +75,18 @@
 
         table.render({
             elem: '#table',
-            url: 'order/list',
+            url: 'api/order/list',
             page: true,
             size: 'lg',
             toolbar: '#toolbarTpl', // 'default'
             cols: [[
-                {field: 'id', title: 'ID', width: 100, align: 'center', sort: true, edit: true},
-                {field: 'nickname', title: '昵称'},
+                {field: 'oderId', title: 'ID', width: 100, align: 'center', sort: true, edit: true},
+                {field: 'name', title: '昵称'},
                 {field: 'email', title: '邮箱'},
-                {field: 'amount', title: '总金额'},
+                {field: 'cost', title: '总金额'},
                 {field: 'status', title: '订单状态'},
-                {field: 'createTime', title: '创建时间'},
-                {field: 'updateTime', title: '修改时间'},
+                {field: 'time', title: '创建时间'},
+                {field: 'trackingNumber', title: '订单号'},
                 {fixed: 'right', title: '操作', width: 120, toolbar: '#barTpl'}
             ]]
         });

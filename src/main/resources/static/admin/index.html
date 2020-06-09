@@ -20,13 +20,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-icon layui-icon-username">用户名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="username" placeholder="请输入用户名" class="layui-input">
+                        <input type="text" name="adminEmail" placeholder="请输入邮箱" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-icon layui-icon-password">密&nbsp;&nbsp;&nbsp;码</label>
                     <div class="layui-input-block">
-                        <input type="password" name="password" placeholder="请输入密码" class="layui-input">
+                        <input type="password" name="adminPassword" placeholder="请输入密码" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -51,27 +51,43 @@
     layui.use(['jquery', 'element', 'form'], function () {
         var $ = layui.jquery, form = layui.form;
 
-        $.get('captcha', function (res) {
-            $('#key').val(res.data.key);
-            $('#captcha').attr('src', res.data.image);
-        });
+        // $.post('api/user/getCode',"{}", function (res) {
+        //     $('#key').val(res.data.key);
+        //     $('#captcha').attr('src', res.data.image);
+        // });
 
-        $('#captcha').click(function () {
-            $.get('captcha', function (res) {
-                $('#key').val(res.data.key);
-                $('#captcha').attr('src', res.data.image);
-            });
-        });
+        // $('#captcha').click(function () {
+        //     $.get('captcha', function (res) {
+        //         $('#key').val(res.data.key);
+        //         $('#captcha').attr('src', res.data.image);
+        //     });
+        // });
 
         form.on('submit(login)', function (data) {
-            $.post('login', data.field, function (res) {
-                if (res.code === 0) {
-                    // local storage
-                    layui.data('token', {key: 'Authorization', value: res.data.token});
-                    layui.data('user', {key: 'info', value: res.data});
-                    layer.msg(res.msg, {time: 1000}, function () {
-                        window.location.href = 'index.html';
-                    });
+            // $.post('api/admin/login', data.field, function (res) {
+            //     if (res.code === 0) {
+            //         // local storage
+            //         layui.data('token', {key: 'Authorization', value: res.data.token});
+            //         layui.data('user', {key: 'info', value: res.data});
+            //         layer.msg(res.msg, {time: 1000}, function () {
+            //             window.location.href = 'index.html';
+            //         });
+            //     }
+            // });
+            $.ajax({
+                url:'api/admin/login',
+                type:'post',
+                contentType:'application/json',
+                data:JSON.stringify(data.field),
+                success:function(res){
+                    if (res.code === 0) {
+                        // local storage
+                        layui.data('token', {key: 'Authorization', value: res.data.token});
+                        layui.data('user', {key: 'info', value: res.data});
+                        layer.msg(res.msg, {time: 1000}, function () {
+                            window.location.href = 'index.html';
+                        });
+                    }
                 }
             });
             return false; // require
