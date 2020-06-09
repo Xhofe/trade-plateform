@@ -141,7 +141,7 @@
                 for (let i = 0; i < goods.length; i++) {
                     $("#item-list").append("" +
                         "<div class=\"item\" data-id='"+goods[i].goodsId+"'>\n" +
-                        "     <img class='layui-anim' src=\""+goods[i].imgurl+"\">\n" +
+                        "     <img class='layui-anim' style='width:280px;height:280px;border-bottom: 1px solid #eaeaea;' data-anim=\"layui-anim-scale\" src=\""+goods[i].imgurl+"\">\n" +
                         "     <p><span>"+goods[i].goodsName+"</span><span class=\"pric\">￥"+goods[i].secondPrice+"</span></p>\n" +
                         "</div>");
                 }
