@@ -80,12 +80,13 @@
             size: 'lg',
             toolbar: '#toolbarTpl', // 'default'
             cols: [[
-                {field: 'oderId', title: 'ID', width: 100, align: 'center', sort: true, edit: true},
-                {field: 'name', title: '昵称'},
-                {field: 'email', title: '邮箱'},
+                {field: 'orderId', title: 'ID', width: 100, align: 'center', sort: true, edit: true},
+                {field: 'name', title: '商品名'},
+                {field: 'buyUserId', title: '用户ID'},
                 {field: 'cost', title: '总金额'},
                 {field: 'status', title: '订单状态'},
                 {field: 'time', title: '创建时间'},
+                {field:'address',title:'地址'},
                 {field: 'trackingNumber', title: '订单号'},
                 {fixed: 'right', title: '操作', width: 120, toolbar: '#barTpl'}
             ]]

@@ -45,11 +45,15 @@ public class ReleaseGoodsController extends BaseController {
     @GetMapping("/category")
     @ResponseBody
     public Object category(String typeId,HttpServletRequest request) {
-//        UserDetails userDetails = getUserDetails(request);
-//        if(userDetails == null)
-//            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        UserDetails userDetails = getUserDetails(request);
+        if(userDetails == null)
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+
+        JSONObject res = new JSONObject();
+        res.put("msg","");
+        res.put("code",0);
         if(typeId == null || typeId == "")
-            return ResultUtil.ok(goodsService.getAllType());
+            res.put("data",goodsService.getAllType());
         else{
             List<Type> _typeList = goodsService.getAllType();
             List<Type> typeList = new ArrayList<>();
@@ -57,8 +61,9 @@ public class ReleaseGoodsController extends BaseController {
                 if(type.getTypeId() == Integer.parseInt(typeId))
                     typeList.add(type);
             }
-            return ResultUtil.ok(typeList);
+            res.put("data",typeList);
         }
+        return res;
     }
 
     @PostMapping("/addGoods")

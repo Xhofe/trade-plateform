@@ -59,6 +59,16 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public int deleteType(int typeId) {
+        return goodsMapper.deleteType(typeId);
+    }
+
+    @Override
+    public int updateType(Type type) {
+        return goodsMapper.updateType(type);
+    }
+
+    @Override
     public List<Goods> getAllGoods() {
         return goodsMapper.getAllGoods();
     }

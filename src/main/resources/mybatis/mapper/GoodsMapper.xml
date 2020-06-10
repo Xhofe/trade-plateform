@@ -29,7 +29,7 @@
         </if>
     </select>
 
-    <insert id="addGoods" parameterType="goods">
+    <insert id="addGoods" useGeneratedKeys="true" parameterType="goods" keyProperty="goodsId">
         insert into goods (goods_name, pop, price, second_price, num, introduce, status, type_id, imgurl)
         values (#{goodsName},#{pop},#{price},#{secondPrice},#{num},#{introduce},#{status},#{typeId},#{imgurl});
     </insert>
@@ -88,6 +88,24 @@
         insert into type(type_id,type_name)
         values (#{typeId},#{typeName});
     </insert>
+
+    <delete id="deleteType" parameterType="int">
+        delete from type
+        where type_id = #{typeId}
+    </delete>
+
+    <update id="updateType" parameterType="type">
+        update type
+        <set>
+            <if test="typeId!=null">
+                type_id=#{typeId},
+            </if>
+            <if test="typeName!=null">
+                type_name=#{typeName}
+            </if>
+        </set>
+        where type_id=#{typeId}
+    </update>
 
     <select id="getGoodsByTypeId" parameterType="int" resultType="goods">
         select *

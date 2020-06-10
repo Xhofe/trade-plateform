@@ -67,6 +67,20 @@ public interface GoodsMapper {
      */
     int addType(Type type);
 
+    /**
+     * 删除分类
+     * @param typeId
+     * @return
+     */
+    int deleteType(int typeId);
+
+    /**
+     * 更新分类
+     * @param type
+     * @return
+     */
+    int updateType(Type type);
+
     List<Goods> getGoodsByTypeId(int typeId);
 
     List<Goods> getGoodsOrderByTop();

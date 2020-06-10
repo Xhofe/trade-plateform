@@ -27,12 +27,40 @@ public class TypeController extends BaseController {
     @PostMapping("/addRoot")
     @ResponseBody
     public Object addRoot(@RequestBody Type type, HttpServletRequest request){
-//        UserDetails userDetails = getUserDetails(request);
-//        if(userDetails == null)
-//            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        UserDetails userDetails = getUserDetails(request);
+        if(userDetails == null)
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         if(goodsService.addType(type) == 1)
             return ResultUtil.ok();
         else
             return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+    }
+
+    @ApiOperation("删除种类")
+    @PostMapping("deleteType")
+    @ResponseBody
+    public Object deleteType(@RequestBody Type type,HttpServletRequest request){
+        UserDetails userDetails = getUserDetails(request);
+        if(userDetails == null)
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        if(goodsService.deleteType(type.getTypeId()) == 1){
+            return ResultUtil.ok(type);
+        }else{
+            return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+        }
+    }
+
+    @ApiOperation("修改种类")
+    @PostMapping("updateType")
+    @ResponseBody
+    public Object updateType(@RequestBody Type type,HttpServletRequest request){
+        UserDetails userDetails = getUserDetails(request);
+        if(userDetails == null)
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        if(goodsService.updateType(type) == 1){
+            return ResultUtil.ok(type);
+        }else{
+            return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+        }
     }
 }

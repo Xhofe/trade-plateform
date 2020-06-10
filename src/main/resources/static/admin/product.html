@@ -263,11 +263,22 @@
         table.on('tool(table)', function (obj) {
             if (obj.event === 'delete') {
                 layer.confirm('确认删除？', function (index) {
-                    $.delete('product/' + obj.data.id, function (res) {
-                        if (res.code === 0) {
-                            obj.del();
+                    // $.delete('api/goods/deleteGoods' + obj.data.id, function (res) {
+                    //     if (res.code === 0) {
+                    //         obj.del();
+                    //     }
+                    // });
+                    $.ajax({
+                        url:'api/goods/deleteGoods',
+                        type:'post',
+                        contentType:'application/json',
+                        data:JSON.stringify(obj.data),
+                        success:function(res){
+                            if(res.code == 0){
+                                obj.del();
+                            }
                         }
-                    });
+                    })
                 });
             }
         });
@@ -335,6 +346,7 @@
             data.field.imgurl = $('#icon')[0].src.split('/').slice(4).join('/'); // 添加图标
             data.field.pop = "1";
             data.field.secondPrice = data.field.price;
+            data.field.typeId = data.field.category;
             $.ajax({
                 url:"api/goods/addGoods",
                 data:JSON.stringify(data.field),
