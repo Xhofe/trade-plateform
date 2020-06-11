@@ -49,11 +49,8 @@ public class ReleaseGoodsController extends BaseController {
         if(userDetails == null)
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
 
-        JSONObject res = new JSONObject();
-        res.put("msg","");
-        res.put("code",0);
         if(typeId == null || typeId == "")
-            res.put("data",goodsService.getAllType());
+            return ResultUtil.ok(goodsService.getAllType());
         else{
             List<Type> _typeList = goodsService.getAllType();
             List<Type> typeList = new ArrayList<>();
@@ -61,9 +58,8 @@ public class ReleaseGoodsController extends BaseController {
                 if(type.getTypeId() == Integer.parseInt(typeId))
                     typeList.add(type);
             }
-            res.put("data",typeList);
+            return ResultUtil.ok(typeList);
         }
-        return res;
     }
 
     @PostMapping("/addGoods")
@@ -246,11 +242,12 @@ public class ReleaseGoodsController extends BaseController {
         }
         else
             goodsList = _goodsList;
-        res.put("code",0);
-        res.put("msg","成功");
-        res.put("count",goodsList.size());
-        res.put("data",goodsList);
-        return res;
+//        res.put("code",0);
+//        res.put("msg","成功");
+//        res.put("count",goodsList.size());
+//        res.put("data",goodsList);
+        return ResultUtil.ok(goodsList);
+        //return res;
     }
 
 }

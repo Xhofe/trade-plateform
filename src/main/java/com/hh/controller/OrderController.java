@@ -82,11 +82,7 @@ public class OrderController extends BaseController {
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         }
         List<Order> orders=orderService.getOrdersByUserId(userDetails.getUserId());
-        JSONObject res = new JSONObject();
-        res.put("msg","");
-        res.put("code",0);
-        res.put("data",orders);
-        return res;
+        return ResultUtil.ok(orders);
     }
 
     @PostMapping("cancel/{id}")
