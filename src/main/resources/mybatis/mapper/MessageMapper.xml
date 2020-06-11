@@ -10,8 +10,8 @@
     </select>
 
     <insert id="addMessage" parameterType="message">
-        insert into message (buy_id, sell_id, message, time)
-        values (#{buyId},#{sellId},#{message},#{time});
+        insert into message (buy_id, sell_id, message, time,send)
+        values (#{buyId},#{sellId},#{message},#{time},#{send});
     </insert>
 
     <select id="getMessageByUserId" parameterType="int" resultType="message">

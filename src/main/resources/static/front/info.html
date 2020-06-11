@@ -99,7 +99,7 @@
     layui.use(['jquery', 'element', 'form', 'upload', 'laydate','layer'], function () {
         var $ = layui.jquery, form = layui.form, upload = layui.upload, laydate = layui.laydate,layer=layui.layer;
 
-        $.get('/api/user/userInfo', function (res) {
+        $.get('api/user/userInfo', function (res) {
             if (res.code === 200) {
                 $('#avatar').attr('src', res.data.userAvatar);
                 $('#userName').val(res.data.userName);
@@ -115,7 +115,7 @@
         form.on('submit(confirm)', function (data) {
             delete data.field.file; // 删除file
             data.field.userAvatar = $('#avatar')[0].src; // 添加avatar
-            $.post('/api/user/updateUser', JSON.stringify(data.field), function (res) {
+            $.post('api/user/updateUser', JSON.stringify(data.field), function (res) {
                 if (res.code === 200) {
                     // $('#header-nickname').text(data.field.nickname);
                     // $('#header-avatar').attr('src', data.field.avatar);

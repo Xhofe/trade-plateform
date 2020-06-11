@@ -49,12 +49,12 @@ public class ReleaseGoodsController extends BaseController {
         if(userDetails == null)
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
 
-        if(typeId == null || typeId == "")
+        if(typeId == null || "".equals(typeId))
             return ResultUtil.ok(goodsService.getAllType());
         else{
             List<Type> _typeList = goodsService.getAllType();
             List<Type> typeList = new ArrayList<>();
-            for(Type type:typeList){
+            for(Type type:_typeList){
                 if(type.getTypeId() == Integer.parseInt(typeId))
                     typeList.add(type);
             }
@@ -69,7 +69,7 @@ public class ReleaseGoodsController extends BaseController {
             if (userDetails == null) {
                 return ResultUtil.fail(ResponseStatus.NO_LOGIN);
             }
-            if (userDetails.admin = false) {
+            if (!userDetails.admin) {
                 return ResultUtil.fail(ResponseStatus.NO_ADMIN);
             }
             int userId = userDetails.getUserId();
@@ -87,7 +87,7 @@ public class ReleaseGoodsController extends BaseController {
             if (userDetails == null) {
                 return ResultUtil.fail(ResponseStatus.NO_LOGIN);
             }
-            if (userDetails.admin = false) {
+            if (!userDetails.admin) {
                 return ResultUtil.fail(ResponseStatus.NO_ADMIN);
             }
             if (goodsService.updateGood(goods) == 1)
@@ -107,7 +107,7 @@ public class ReleaseGoodsController extends BaseController {
             if (userDetails == null) {
                 return ResultUtil.fail(ResponseStatus.NO_LOGIN);
             }
-            if (userDetails.admin = false) {
+            if (!userDetails.admin) {
                 return ResultUtil.fail(ResponseStatus.NO_ADMIN);
             }
             if (goodsService.deleteGood(goods.getGoodsId()) == 1)
@@ -154,6 +154,8 @@ public class ReleaseGoodsController extends BaseController {
                           @PathParam("page") Integer page,
                           @PathParam("keyword")String keyword) {
         log.info("参数为type={},limit={},page={},keyword={}",type,limit,page,keyword);
+        if(limit==null)limit=12;
+        if (page==null)page=1;
         Map<String, Object> res = new HashMap<>();
         List<Goods> goodsList;
         if (type!=null){

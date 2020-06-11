@@ -72,6 +72,7 @@ public class JwtTokenUtil {
         UserDetails userDetail;
         try {
             Claims claims = getClaimsFromToken(token);
+            if (claims==null)return null;
             userDetail = new ObjectMapper().readValue(claims.getSubject(),UserDetails.class);
         } catch (Exception e) {
             log.error(e.getMessage(),e);
@@ -94,6 +95,7 @@ public class JwtTokenUtil {
      */
     private Date getExpiredDateFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
+        if (claims==null)return null;
         return claims.getExpiration();
     }
 
@@ -120,6 +122,7 @@ public class JwtTokenUtil {
      */
     public String refreshToken(String token) {
         Claims claims = getClaimsFromToken(token);
+        if (claims==null)return null;
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }
