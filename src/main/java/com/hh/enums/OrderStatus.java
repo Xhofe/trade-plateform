@@ -19,4 +19,13 @@ public enum  OrderStatus {
         this.code = code;
         this.msg = msg;
     }
+
+    public static OrderStatus getByCode(Integer code){
+        for (OrderStatus orderStatus : OrderStatus.values()) {
+            if (orderStatus.getCode().equals(code)){
+                return orderStatus;
+            }
+        }
+        return null;
+    }
 }

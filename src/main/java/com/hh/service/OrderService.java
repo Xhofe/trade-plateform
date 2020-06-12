@@ -33,4 +33,6 @@ public interface OrderService {
 
     public int refundOrder(int id);
 
+    public int buyOne(int userId,int goodsId);
+
 }

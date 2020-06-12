@@ -346,7 +346,8 @@
                 data.field.status = "0";
             else
                 data.field.status="1";
-            data.field.imgurl = $('#icon')[0].src.split('/').slice(4).join('/'); // 添加图标
+            data.field.imgurl = $('#icon')[0].src; // 添加图标
+            // data.field.imgurl = $('#icon')[0].src.split('/').slice(4).join('/'); // 添加图标
             data.field.pop = "1";
             data.field.secondPrice = data.field.price;
             data.field.typeId = data.field.category;
@@ -369,7 +370,7 @@
 
         upload.render({
             elem: '#upload',
-            url: '/api/goods/uploadImg',
+            url: 'api/goods/uploadImg',
             // acceptMime:"image/*",
             before:function(obj){
                 obj.preview(function (index, file, result) {
@@ -378,7 +379,7 @@
             },
             done: function (res) {
                 alert("上传成功...");
-                $('#icon').attr('src', "img/"+res.data.src); // 异步 + cdn
+                $('#icon').attr('src', "/img/"+res.data.src); // 异步 + cdn
             },
             error:function(res){
                 alert("上传错误...");

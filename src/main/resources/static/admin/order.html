@@ -54,20 +54,22 @@
 </script>
 <script type="text/html" id="barTpl">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">详情</a>
-    {{# if (d.status == '0') { }}
+    {{# if (d.status == '待付款') { }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="cancel">取消</a>
-    {{# } else if (d.status == '1') { }}
+    {{# } else if (d.status == '待发货') { }}
     <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="ship">发货</a>
-    {{# } else if (d.status == '2') { }}
+    {{# } else if (d.status == '待收货') { }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="receive">完成</a>
-    {{# } else if (d.status == '5') { }}
+    {{# } else if (d.status == '退款申请') { }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="deal">退款</a>
     {{# } }}
 </script>
+<script type="text/javascript" src="js/util.js"></script>
 <script>
     layui.use(['jquery', 'element', 'form', 'table', 'laytpl'], function () {
         var $ = layui.jquery, form = layui.form, table = layui.table, laytpl = layui.laytpl;
 
+        let status=['待付款','待发货','待收货','已取消','已完成','退款申请','退款成功'];
         form.on('select(statusSearch)', function (data) {
             table.reload('table', {
                 //url: 'order/list',
@@ -83,12 +85,19 @@
             page: true,
             size: 'lg',
             toolbar: '#toolbarTpl', // 'default'
+            parseData: function (res) {
+                $(res.data).each(function (i, d) {
+                    d.status=status[d.status];
+                    d.time=new Date(d.time).format("yyyy-MM-dd hh:mm:ss");
+                });
+                return res;
+            },
             response:{
                 statusCode:200
             },
             cols: [[
                 {field: 'orderId', title: 'ID', width: 100, align: 'center', sort: true, edit: true},
-                {field: 'name', title: '商品名'},
+                {field: 'name', title: '收货人'},
                 {field: 'buyUserId', title: '用户ID'},
                 {field: 'cost', title: '总金额'},
                 {field: 'status', title: '订单状态'},

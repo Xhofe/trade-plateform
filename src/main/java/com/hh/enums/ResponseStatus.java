@@ -34,6 +34,7 @@ public enum ResponseStatus {
      */
     NO_GOODS(600,"没有s商品"),
     HAS_COLLECT(601,"已经收藏过该商品了"),
+    BUY_FAIL(602,"购买失败"),
     /**
      * 用户相关错误
      * */
@@ -57,7 +58,7 @@ public enum ResponseStatus {
     IMG_UPLOAD_FAIL(4001,"图片上传失败"),
 
     /**
-     * 商品相关错误
+     * 权限相关错误
      */
     NO_ADMIN(5001,"需要管理员权限"),
 

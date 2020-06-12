@@ -164,6 +164,16 @@
             }
         });
 
+        $('#buy').click(function () {
+            $.get('api/order/buyOne/'+goodsId,function (res) {
+                if (res.code===200){
+                    layer.msg("下单成功，前往订单中心支付");
+                }else {
+                    layer.msg(res.msg);
+                }
+            });
+        });
+
         $('#collect').click(function () {
             if (hasCollect) {
                 $.get('api/goods/collect/cancel?collectId=' + collectId, function (res) {
