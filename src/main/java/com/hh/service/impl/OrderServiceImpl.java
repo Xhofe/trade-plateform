@@ -97,6 +97,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int updateOrder(Order order) {
+        return orderMapper.updateOrder(order);
+    }
+
+    @Override
     public int cancelOrder(int id) {
         Order order=getOrderById(id);
         order.setStatus(OrderStatus.CANCEL.getCode());
