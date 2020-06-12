@@ -346,7 +346,8 @@
                 data.field.status = "0";
             else
                 data.field.status="1";
-            data.field.imgurl = $('#icon')[0].src.split('/').slice(4).join('/'); // 添加图标
+            data.field.imgurl = $('#icon')[0].src; // 添加图标
+            // data.field.imgurl = $('#icon')[0].src.split('/').slice(4).join('/'); // 添加图标
             data.field.pop = "1";
             data.field.secondPrice = data.field.price;
             data.field.typeId = data.field.category;
