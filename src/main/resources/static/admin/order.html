@@ -37,7 +37,7 @@
 </div>
 <script type="text/html" id="toolbarTpl">
     <div class="layui-inline">
-        <select name="select" lay-filter="statusSearch">
+        <select name="select" lay-filter="statusSearch" id="statusSelect">
             <option value="">所有订单</option>
             <option value="0">待付款</option>
             <option value="1">待发货</option>
@@ -54,11 +54,13 @@
 </script>
 <script type="text/html" id="barTpl">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">详情</a>
-    {{# if (d.status == '待付款') { }}
+    {{# if (d.status == '0') { }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="cancel">取消</a>
-    {{# } else if (d.status == '待发货') { }}
+    {{# } else if (d.status == '1') { }}
     <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="ship">发货</a>
-    {{# } else if (d.status == '退款申请') { }}
+    {{# } else if (d.status == '2') { }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="receive">完成</a>
+    {{# } else if (d.status == '5') { }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="deal">退款</a>
     {{# } }}
 </script>
@@ -68,9 +70,11 @@
 
         form.on('select(statusSearch)', function (data) {
             table.reload('table', {
-                // url: 'order/list',
+                //url: 'order/list',
+                //url:'api/order/list',
                 where: {status: data.value}
             });
+            $('#statusSelect').val(data.value);
         });
 
         table.render({
@@ -99,7 +103,7 @@
         table.on('tool(table)', function (obj) {
             switch (obj.event) {
                 case 'detail':
-                    $.get('order/' + obj.data.id, function (res) {
+                    $.get('api/order/info/' + obj.data.orderId, function (res) {
                         var detailData = res.data.detail;
                         var timelineData = res.data.timeline;
                         layer.open({
@@ -130,8 +134,8 @@
                     break;
                 case 'cancel':
                     layer.confirm('确认取消订单？', function (index) {
-                        $.post('pay/cancel/' + obj.data.id, function (res) {
-                            if (res.code === 0) {
+                        $.post('api/order/cancel/' + obj.data.orderId, function (res) {
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });
@@ -139,8 +143,8 @@
                     break;
                 case 'deal':
                     layer.confirm('确认处理退款？', function (index) {
-                        $.post('pay/deal/' + obj.data.id, function (res) {
-                            if (res.code === 0) {
+                        $.post('api/order/refund/' + obj.data.orderId, function (res) {
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });
@@ -148,8 +152,17 @@
                     break;
                 case 'ship':
                     layer.confirm('确认发货？', function (index) {
-                        $.post('pay/ship/' + obj.data.id, function (res) {
-                            if (res.code === 0) {
+                        $.post('api/order/ship/' + obj.data.orderId, function (res) {
+                            if (res.code === 200) {
+                                table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
+                            }
+                        });
+                    });
+                    break;
+                case 'receive':
+                    layer.confirm('确认完成？', function (index) {
+                        $.post('api/order/receive/' + obj.data.orderId, function (res) {
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });

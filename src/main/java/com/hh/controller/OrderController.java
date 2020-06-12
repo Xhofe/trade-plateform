@@ -1,6 +1,8 @@
 package com.hh.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPObject;
+import com.alipay.api.domain.OrderDetailResult;
 import com.hh.enums.ResponseStatus;
 import com.hh.pojo.Goods;
 import com.hh.pojo.Order;
@@ -11,10 +13,13 @@ import com.hh.service.UserService;
 import com.hh.util.ResultUtil;
 import com.hh.vo.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.readers.operation.OperationDeprecatedReader;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +62,20 @@ public class OrderController extends BaseController {
         orderVo.setPrice(order.getCost());
         orderVo.setQuantity((int) Math.round(order.getCost()/goods.getSecondPrice()));
         Map<String ,Object> map=new HashMap<>();
-        map.put("detail",orderVo);
-        map.put("timeline",null);//时间线
+        List<OrderVo> orderVosList = new ArrayList<>();
+        orderVosList.add(orderVo);
+        map.put("detail",orderVosList);
+
+        //timeline
+        List<JSONObject> timelineList = new ArrayList<>();
+
+        JSONObject testObject = new JSONObject();
+        testObject.put("status","下单时间");
+        testObject.put("time",order.getTime());
+        timelineList.add(testObject);
+        map.put("timeline",timelineList);//时间线
+
+
         return ResultUtil.ok(map);
     }
 
@@ -76,12 +93,22 @@ public class OrderController extends BaseController {
     }
 
     @GetMapping("list")
-    public Object list(HttpServletRequest request){
+    @ResponseBody
+    public Object list(String status,HttpServletRequest request){
         UserDetails userDetails = getUserDetails(request);
         if (userDetails == null) {
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         }
-        List<Order> orders=orderService.getOrdersByUserId(userDetails.getUserId());
+        List<Order> _orders=orderService.getOrdersByUserId(userDetails.getUserId());
+        List<Order> orders = new ArrayList<>();
+        if(status != null && status != ""){
+            for(Order order:_orders){
+                if(order.getStatus() == Integer.parseInt(status))
+                    orders.add(order);
+            }
+        }else
+            orders = _orders;
+
         return ResultUtil.ok(orders);
     }
 
@@ -92,6 +119,19 @@ public class OrderController extends BaseController {
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         }
         int res= orderService.cancelOrder(id);
+        if (res==1){
+            return ResultUtil.ok();
+        }
+        return ResultUtil.error();
+    }
+
+    @PostMapping("ship/{id}")
+    public Object ship(HttpServletRequest request, @PathVariable int id){
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null) {
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        }
+        int res= orderService.shipOrder(id);
         if (res==1){
             return ResultUtil.ok();
         }

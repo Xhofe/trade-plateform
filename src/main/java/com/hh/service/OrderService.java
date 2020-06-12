@@ -27,6 +27,8 @@ public interface OrderService {
 
     public int cancelOrder(int id);
 
+    public int shipOrder(int id);
+
     public int receiveOrder(int id);
 
     public int refundOrder(int id);
