@@ -14,11 +14,13 @@ function logout() {
     setCookie('Authorization', "", -1);
     $=layui.$;
     $.post('api/user/logout',function (res) {
-        layer.msg(res.msg);
+        layer.msg(res.msg,{time:1000},function () {
+            window.location.href = "index.html";
+        });
     });
     layui.data('token', null);
     layui.data('user', null);
-    window.location.href = "index.html";
+    // window.location.href = "index.html";
 }
 
 document.write("<div class=\"site-nav-bg\">");
