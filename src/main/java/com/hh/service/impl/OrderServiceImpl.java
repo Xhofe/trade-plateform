@@ -48,6 +48,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int shipOrder(int id) {
+        Order order = getOrderById(id);
+        order.setStatus(OrderStatus.TO_BE_RECEIVED.getCode());
+        return orderMapper.updateOrder(order);
+    }
+
+    @Override
     public int refundOrder(int id) {
         Order order=getOrderById(id);
         order.setStatus(OrderStatus.REFUND_REQUEST.getCode());
@@ -60,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(OrderStatus.CANCEL.getCode());
         return orderMapper.updateOrder(order);
     }
+
+
 
     @Override
     public List<Order> getOrdersByUserId(int userId) {

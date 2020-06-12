@@ -58,6 +58,8 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="cancel">取消</a>
     {{# } else if (d.status == '1') { }}
     <a class="layui-btn layui-btn-success layui-btn-xs" lay-event="ship">发货</a>
+    {{# } else if (d.status == '2') { }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="receive">完成</a>
     {{# } else if (d.status == '5') { }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="deal">退款</a>
     {{# } }}
@@ -133,7 +135,7 @@
                 case 'cancel':
                     layer.confirm('确认取消订单？', function (index) {
                         $.post('api/order/cancel/' + obj.data.orderId, function (res) {
-                            if (res.code === 0) {
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });
@@ -142,7 +144,7 @@
                 case 'deal':
                     layer.confirm('确认处理退款？', function (index) {
                         $.post('api/order/refund/' + obj.data.orderId, function (res) {
-                            if (res.code === 0) {
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });
@@ -150,8 +152,17 @@
                     break;
                 case 'ship':
                     layer.confirm('确认发货？', function (index) {
+                        $.post('api/order/ship/' + obj.data.orderId, function (res) {
+                            if (res.code === 200) {
+                                table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
+                            }
+                        });
+                    });
+                    break;
+                case 'receive':
+                    layer.confirm('确认完成？', function (index) {
                         $.post('api/order/receive/' + obj.data.orderId, function (res) {
-                            if (res.code === 0) {
+                            if (res.code === 200) {
                                 table.reload('table', {page: {curr: $(".layui-laypage-em").next().html()}});
                             }
                         });
