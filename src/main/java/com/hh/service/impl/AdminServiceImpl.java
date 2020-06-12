@@ -33,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public UserDetails login(Admin admin) {
         Admin sqlAdmin = adminMapper.getAdminByEmail(admin.getAdminEmail());
-        if(!sqlAdmin.getAdminPassword().equals(admin.getAdminPassword()))
+        if(sqlAdmin==null||!sqlAdmin.getAdminPassword().equals(admin.getAdminPassword()))
             return null;
         UserDetails userDetails = new UserDetails();
         userDetails.setAdmin(true);

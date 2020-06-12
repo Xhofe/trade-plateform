@@ -2,13 +2,22 @@ function ok() {
     return layui.data('token').Authorization !== undefined || layui.data('user').info !== undefined;
 }
 
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
 function logout() {
-    layui.data('token', null);
-    layui.data('user', null);
+    setCookie('Authorization', "", -1);
     $=layui.$;
     $.post('api/user/logout',function (res) {
         layer.msg(res.msg);
     });
+    layui.data('token', null);
+    layui.data('user', null);
     window.location.href = "index.html";
 }
 
