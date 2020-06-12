@@ -40,7 +40,7 @@
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit lay-filter="login">登录</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        <button class="layui-btn layui-btn-primary" lay-submit layui-filter="logout">注销</button><!--type=reset-->
                     </div>
                 </div>
             </form>
@@ -79,6 +79,26 @@
                 type:'post',
                 contentType:'application/json',
                 data:JSON.stringify(data.field),
+                success:function(res){
+                    if (res.code === 0) {
+                        // local storage
+                        layui.data('token', {key: 'Authorization', value: res.data.token});
+                        layui.data('user', {key: 'info', value: res.data});
+                        layer.msg(res.msg, {time: 1000}, function () {
+                            window.location.href = 'index.html';
+                        });
+                    }
+                }
+            });
+            return false; // require
+        });
+
+        form.on('submit(logout)', function (data) {
+            $.ajax({
+                url:'api/admin/logout',
+                type:'post',
+                contentType:'application/json',
+                // data:JSON.stringify(data.field),
                 success:function(res){
                     if (res.code === 0) {
                         // local storage
