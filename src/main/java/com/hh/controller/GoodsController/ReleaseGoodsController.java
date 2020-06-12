@@ -179,7 +179,10 @@ public class ReleaseGoodsController extends BaseController {
     }
 
     @GetMapping("goodsInfo")
-    public Object goodsInfo(@RequestParam("id") int id){
+    public Object goodsInfo(@RequestParam("id") int id,HttpServletRequest request){
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null)
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         Goods goods=goodsService.getGoodsById(id);
         if (goods==null)return ResultUtil.fail(ResponseStatus.NO_GOODS);
         return ResultUtil.ok(goods);
@@ -191,7 +194,11 @@ public class ReleaseGoodsController extends BaseController {
 
 
     @PostMapping("uploadImg")
-    public Object uploadImg(@RequestParam(value="file") MultipartFile file){
+    public Object uploadImg(@RequestParam(value="file") MultipartFile file,HttpServletRequest request){
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null)
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+
         System.out.println("img file path is"+imgFilePath);
         if(!file.isEmpty()){
             try {
@@ -218,7 +225,10 @@ public class ReleaseGoodsController extends BaseController {
     }
 
     @GetMapping("/recommend")
-    public Object recommend(){
+    public Object recommend(HttpServletRequest request){
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null)
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         try {
             List<Goods> goodsList=goodsService.getGoodsOrderByPop();
             return ResultUtil.ok(Lists.partition(goodsList,8).get(0));
@@ -231,7 +241,10 @@ public class ReleaseGoodsController extends BaseController {
     @ApiOperation("获取商品列表")
     @GetMapping("/list")
     @ResponseBody
-    public Object list(String typeId,String keyword) {
+    public Object list(String typeId,String keyword,HttpServletRequest request) {
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null)
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         Map<String,Object> res = new HashMap<>();
 
         List<Goods> _goodsList = goodsService.getAllGoods();
