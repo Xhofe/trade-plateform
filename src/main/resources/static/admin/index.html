@@ -40,7 +40,8 @@
                 <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn" lay-submit lay-filter="login">登录</button>
-                        <button class="layui-btn layui-btn-primary" lay-submit layui-filter="logout">注销</button><!--type=reset-->
+                        <button id="logout" class="layui-btn layui-btn-primary" lay-submit layui-filter="logout">注销
+                        </button><!--type=reset-->
                     </div>
                 </div>
             </form>
@@ -75,11 +76,11 @@
             //     }
             // });
             $.ajax({
-                url:'api/admin/login',
-                type:'post',
-                contentType:'application/json',
-                data:JSON.stringify(data.field),
-                success:function(res){
+                url: 'api/admin/login',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(data.field),
+                success: function (res) {
                     if (res.code === 200) {
                         // local storage
                         layui.data('token', {key: 'Authorization', value: res.data.token});
@@ -87,8 +88,7 @@
                         layer.msg(res.msg, {time: 1000}, function () {
                             window.location.href = 'product.html';
                         });
-                    }
-                    else {
+                    } else {
                         layer.msg(res.msg);
                     }
                 }
@@ -96,13 +96,13 @@
             return false; // require
         });
 
-        form.on('submit(logout)', function (data) {
+        $('#logout').click(function (event) {
             $.ajax({
-                url:'api/admin/logout',
-                type:'post',
-                contentType:'application/json',
+                url: 'api/admin/logout',
+                type: 'post',
+                contentType: 'application/json',
                 // data:JSON.stringify(data.field),
-                success:function(res){
+                success: function (res) {
                     if (res.code === 200) {
                         // local storage
                         layui.data('token', {key: 'Authorization', value: res.data.token});
@@ -111,10 +111,35 @@
                             window.location.href = 'index.html';
                         });
                     }
+                },
+                error: function (res) {
+                    alert("注销失败");
                 }
             });
-            return false; // require
         });
+
+        // form.on('submit(logout)', function (data) {
+        //     $.ajax({
+        //         url:'api/admin/logout',
+        //         type:'post',
+        //         contentType:'application/json',
+        //         // data:JSON.stringify(data.field),
+        //         success:function(res){
+        //             if (res.code === 200) {
+        //                 // local storage
+        //                 layui.data('token', {key: 'Authorization', value: res.data.token});
+        //                 layui.data('user', {key: 'info', value: res.data});
+        //                 layer.msg(res.msg, {time: 1000}, function () {
+        //                     window.location.href = 'index.html';
+        //                 });
+        //             }
+        //         },
+        //         error:function(res){
+        //             alert("注销失败");
+        //         }
+        //     });
+        //     return false; // require
+        // });
     });
 </script>
 </body>

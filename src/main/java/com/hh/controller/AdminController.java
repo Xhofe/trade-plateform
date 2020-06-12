@@ -43,7 +43,11 @@ public class AdminController extends BaseController{
 
     @PostMapping("logout")
     public Object logout(HttpServletRequest request,HttpServletResponse response){
-        String value = CookieUtil.getCookie(request,"Autorization");
-        return "";
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null) {
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        }
+        CookieUtil.setCookie(response,"Authorization",null);
+        return ResultUtil.ok();
     }
 }
