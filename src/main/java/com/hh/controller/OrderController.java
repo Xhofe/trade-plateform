@@ -92,6 +92,19 @@ public class OrderController extends BaseController {
         return ResultUtil.ok(res.substring(0,res.length()-1)+"库存不足");
     }
 
+    @GetMapping("buyOne/{id}")
+    public Object buyOne(HttpServletRequest request, @PathVariable int id){
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null) {
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        }
+        int res=orderService.buyOne(userDetails.getUserId(),id);
+        if (res==1){
+            return ResultUtil.ok();
+        }
+        return ResultUtil.fail(ResponseStatus.BUY_FAIL);
+    }
+
     @GetMapping("list")
     @ResponseBody
     public Object list(String status,HttpServletRequest request){
@@ -101,7 +114,7 @@ public class OrderController extends BaseController {
         }
         List<Order> _orders=orderService.getOrdersByUserId(userDetails.getUserId());
         List<Order> orders = new ArrayList<>();
-        if(status != null && status != ""){
+        if(status != null && !status.equals("")){
             for(Order order:_orders){
                 if(order.getStatus() == Integer.parseInt(status))
                     orders.add(order);

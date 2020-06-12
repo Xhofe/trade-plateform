@@ -3,6 +3,7 @@ package com.hh.service.impl;
 import com.hh.enums.OrderStatus;
 import com.hh.mapper.GoodsMapper;
 import com.hh.mapper.OrderMapper;
+import com.hh.mapper.UserMapper;
 import com.hh.pojo.Collect;
 import com.hh.pojo.Goods;
 import com.hh.pojo.Order;
@@ -24,6 +25,12 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
     private CollectService collectService;
     private GoodsMapper goodsMapper;
+    private UserMapper userMapper;
+
+    @Autowired
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     @Autowired
     public void setGoodsMapper(GoodsMapper goodsMapper) {
@@ -44,6 +51,10 @@ public class OrderServiceImpl implements OrderService {
     public int receiveOrder(int id) {
         Order order=getOrderById(id);
         order.setStatus(OrderStatus.FINISH.getCode());
+        Goods goods=goodsMapper.getGoodsByGoodsId(order.getGoodsId());
+        int count= (int) Math.round(order.getCost()/goods.getSecondPrice());
+        goods.setPop(goods.getPop()+count);
+        goodsMapper.updateGoods(goods);
         return orderMapper.updateOrder(order);
     }
 
@@ -62,9 +73,32 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int buyOne(int userId, int goodsId) {
+        Goods goods=goodsMapper.getGoodsByGoodsId(goodsId);
+        if (goods.getNum()<1){
+            return 0;
+        }
+        User user=userMapper.getUserById(userId);
+        Order order=new Order();
+        order.setGoodsId(goodsId);
+        order.setTime(new Timestamp(System.currentTimeMillis()));
+        order.setName(user.getUserName());
+        order.setAddress(user.getUserAddress());
+        order.setBuyUserId(userId);
+        order.setCost(goods.getSecondPrice());
+        goods.setNum(goods.getNum()-1);
+        goodsMapper.updateGoods(goods);
+        return orderMapper.addOrder(order);
+    }
+
+    @Override
     public int cancelOrder(int id) {
         Order order=getOrderById(id);
         order.setStatus(OrderStatus.CANCEL.getCode());
+        Goods goods=goodsMapper.getGoodsByGoodsId(order.getGoodsId());
+        int count= (int) Math.round(order.getCost()/goods.getSecondPrice());
+        goods.setNum(goods.getNum()+count);
+        goodsMapper.updateGoods(goods);
         return orderMapper.updateOrder(order);
     }
 
