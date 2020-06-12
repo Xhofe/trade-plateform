@@ -27,7 +27,7 @@ public class goodTest {
         good.setStatus(1);
         good.setTypeId(1);
         good.setImgurl("/img/url");
-        System.out.println(goodsMapper.addGoods(good));
+//        System.out.println(goodsMapper.addGoods(good));
     }
 
     @Test

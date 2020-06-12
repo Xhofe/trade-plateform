@@ -35,4 +35,5 @@ public interface OrderService {
 
     public int buyOne(int userId,int goodsId);
 
+    public List<Order> getAllOrders();
 }

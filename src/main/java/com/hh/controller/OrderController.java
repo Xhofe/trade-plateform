@@ -112,7 +112,12 @@ public class OrderController extends BaseController {
         if (userDetails == null) {
             return ResultUtil.fail(ResponseStatus.NO_LOGIN);
         }
-        List<Order> _orders=orderService.getOrdersByUserId(userDetails.getUserId());
+        List<Order> _orders;
+        if (userDetails.admin){
+            _orders=orderService.getAllOrders();
+        }else {
+            _orders=orderService.getOrdersByUserId(userDetails.getUserId());
+        }
         List<Order> orders = new ArrayList<>();
         if(status != null && !status.equals("")){
             for(Order order:_orders){

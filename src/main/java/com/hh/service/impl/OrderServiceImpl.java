@@ -73,6 +73,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAllOrders() {
+        return orderMapper.getAllOrders();
+    }
+
+    @Override
     public int buyOne(int userId, int goodsId) {
         Goods goods=goodsMapper.getGoodsByGoodsId(goodsId);
         if (goods.getNum()<1){

@@ -36,4 +36,6 @@ public interface OrderMapper {
     Order getOrderById(int id);
 
     int updateOrder(Order order);
+
+    List<Order> getAllOrders();
 }
