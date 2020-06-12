@@ -44,11 +44,7 @@ public class ReleaseGoodsController extends BaseController {
     @ApiOperation("获取分类列表")
     @GetMapping("/category")
     @ResponseBody
-    public Object category(String typeId,HttpServletRequest request) {
-        UserDetails userDetails = getUserDetails(request);
-        if(userDetails == null)
-            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
-
+    public Object category(String typeId) {
         if(typeId == null || "".equals(typeId))
             return ResultUtil.ok(goodsService.getAllType());
         else{
