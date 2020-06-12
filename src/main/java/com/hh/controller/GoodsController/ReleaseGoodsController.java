@@ -175,10 +175,7 @@ public class ReleaseGoodsController extends BaseController {
     }
 
     @GetMapping("goodsInfo")
-    public Object goodsInfo(@RequestParam("id") int id,HttpServletRequest request){
-        UserDetails userDetails = getUserDetails(request);
-        if (userDetails == null)
-            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+    public Object goodsInfo(@RequestParam("id") int id){
         Goods goods=goodsService.getGoodsById(id);
         if (goods==null)return ResultUtil.fail(ResponseStatus.NO_GOODS);
         return ResultUtil.ok(goods);
@@ -221,10 +218,7 @@ public class ReleaseGoodsController extends BaseController {
     }
 
     @GetMapping("/recommend")
-    public Object recommend(HttpServletRequest request){
-        UserDetails userDetails = getUserDetails(request);
-        if (userDetails == null)
-            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+    public Object recommend(){
         try {
             List<Goods> goodsList=goodsService.getGoodsOrderByPop();
             return ResultUtil.ok(Lists.partition(goodsList,8).get(0));

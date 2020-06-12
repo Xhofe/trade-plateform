@@ -15,11 +15,11 @@ function logout() {
     $=layui.$;
     $.post('api/user/logout',function (res) {
         layer.msg(res.msg,{time:1000},function () {
+            layui.data('token', null);
+            layui.data('user', null);
             window.location.href = "index.html";
         });
     });
-    layui.data('token', null);
-    layui.data('user', null);
     // window.location.href = "index.html";
 }
 
