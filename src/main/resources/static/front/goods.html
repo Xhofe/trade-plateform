@@ -22,7 +22,7 @@
         </div>
         <div class="product-intro layui-clear">
             <div class="preview-wrap">
-                <a href="javascript:;"><img id="firstImg" src=""></a>
+                <a href="javascript:;"><img id="firstImg" style="max-height: 400px;max-width: 400px" src=""></a>
             </div>
             <div class="itemInfo-wrap">
                 <div class="itemInfo">
@@ -99,7 +99,7 @@
                 $('#firstImg').attr('src', imgs[0]);
 
                 for (let i = 0; i < imgs.length; i++) {
-                    $('#imgs').append("<img src=" + imgs[i] + ">");
+                    $('#imgs').append("<img style='max-width: 770px' src=" + imgs[i] + ">");
                 }
                 $('#introduce').append(res.data.introduce);
             } else {
