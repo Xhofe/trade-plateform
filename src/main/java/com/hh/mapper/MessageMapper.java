@@ -26,4 +26,6 @@ public interface MessageMapper {
     int addMessage(Message message);
 
     List<Message> getMessageByUserId(int userId);
+
+    List<Integer> getUserIds(int adminId);
 }

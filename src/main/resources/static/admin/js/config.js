@@ -10,6 +10,7 @@ layui.use(['jquery', 'layer'], function () {
     $.ajaxSetup({
         headers: layui.data('token'),
         dataType: 'json',
+        contentType : 'application/json',
         beforeSend: function (xhr, settings) {
             settings.url = API + settings.url;
         },

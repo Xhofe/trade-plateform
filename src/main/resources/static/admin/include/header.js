@@ -15,7 +15,7 @@ document.write("        <li class=\"layui-nav-item\"><a href=\"index.html\">控�
 document.write("        <li class=\"layui-nav-item\">");
 document.write("            <a href=\"javascript:void(0);\">其它<\/a>");
 document.write("            <dl class=\"layui-nav-child\">");
-document.write("                <dd><a href=\"https://github.com/littleredhat1997\">GitHub<\/a><\/dd>");
+document.write("                <dd><a href=\"https://github.com/Xhofe/trade-plateform\">GitHub<\/a><\/dd>");
 document.write("            <\/dl>");
 document.write("        <\/li>");
 document.write("    <\/ul>");

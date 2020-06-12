@@ -26,4 +26,14 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> getList(int userId) {
         return mapper.getMessageByUserId(userId);
     }
+
+    @Override
+    public List<Integer> getUserIds(int adminId) {
+        return mapper.getUserIds(adminId);
+    }
+
+    @Override
+    public List<Message> getList(int adminId, int userId) {
+        return mapper.getMessageByIds(userId,adminId);
+    }
 }
