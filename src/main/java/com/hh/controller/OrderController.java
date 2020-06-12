@@ -176,4 +176,20 @@ public class OrderController extends BaseController {
         }
         return ResultUtil.error();
     }
+
+    @PostMapping("update")
+    public Object update(@RequestBody Order order,HttpServletRequest request){
+        UserDetails userDetails = getUserDetails(request);
+        if (userDetails == null) {
+            return ResultUtil.fail(ResponseStatus.NO_LOGIN);
+        }
+        if(!userDetails.admin){
+            return ResultUtil.fail(ResponseStatus.NO_ADMIN);
+        }
+
+        if(orderService.updateOrder(order) == 1)
+            return ResultUtil.ok(order);
+        else
+            return ResultUtil.fail(ResponseStatus.PARAM_ERROR);
+    }
 }

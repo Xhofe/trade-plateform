@@ -103,7 +103,7 @@
                 {field: 'status', title: '订单状态'},
                 {field: 'time', title: '创建时间'},
                 {field:'address',title:'地址'},
-                {field: 'trackingNumber', title: '订单号'},
+                {field: 'trackingNumber', title: '订单号',edit:'text'},
                 {fixed: 'right', title: '操作', width: 120, toolbar: '#barTpl'}
             ]]
         });
@@ -182,6 +182,26 @@
                     });
                     break;
             }
+        });
+
+        // 监听单元格编辑
+        table.on('edit(table)', function (obj) {
+            // 记录编辑之前的值
+            var old = $(this).prev().text();
+            delete obj.data.status;
+            delete obj.data.time;
+            $.ajax({
+                url:"api/order/update",
+                data:JSON.stringify(obj.data),
+                contentType:"application/json",
+                type:"post",
+                success:function(data){
+                    if(data.code != 200){
+                        $(obj.tr.selector + ' td[data-field="' + obj.field + '"] input').val(old);
+                        $(obj.tr.selector + ' td[data-field="' + obj.field + '"] div').text(old);
+                    }
+                }
+            })
         });
     });
 </script>

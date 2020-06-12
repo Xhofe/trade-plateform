@@ -35,4 +35,6 @@ public interface OrderService {
 
     public int buyOne(int userId,int goodsId);
 
+    public int updateOrder(Order order);
+
 }
