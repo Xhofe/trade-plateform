@@ -369,7 +369,7 @@
 
         upload.render({
             elem: '#upload',
-            url: '/api/goods/uploadImg',
+            url: 'api/goods/uploadImg',
             // acceptMime:"image/*",
             before:function(obj){
                 obj.preview(function (index, file, result) {
@@ -378,7 +378,7 @@
             },
             done: function (res) {
                 alert("上传成功...");
-                $('#icon').attr('src', "img/"+res.data.src); // 异步 + cdn
+                $('#icon').attr('src', "/img/"+res.data.src); // 异步 + cdn
             },
             error:function(res){
                 alert("上传错误...");

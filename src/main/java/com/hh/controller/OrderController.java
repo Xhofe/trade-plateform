@@ -56,7 +56,7 @@ public class OrderController extends BaseController {
         Order order=orderService.getOrderById(id);
         Goods goods=goodsService.getGoodsById(order.getGoodsId());
         OrderVo orderVo=new OrderVo();
-        orderVo.setId(order.getOrderId());
+        orderVo.setId(order.getGoodsId());
         orderVo.setIcon(goods.getImgurl().split(";")[0]);
         orderVo.setName(goods.getGoodsName());
         orderVo.setPrice(order.getCost());
