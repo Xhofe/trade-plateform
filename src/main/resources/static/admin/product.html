@@ -277,9 +277,10 @@
                         contentType:'application/json',
                         data:JSON.stringify(obj.data),
                         success:function(res){
-                            if(res.code == 0){
+                            if(res.code === 200){
                                 obj.del();
                             }
+                            layer.msg(res.msg);
                         }
                     })
                 });
@@ -303,10 +304,11 @@
                 contentType:"application/json",
                 type:"post",
                 success:function(data){
-                    if(data.code != 0){
+                    if(data.code === 200){
                         $(obj.tr.selector + ' td[data-field="' + obj.field + '"] input').val(old);
                         $(obj.tr.selector + ' td[data-field="' + obj.field + '"] div').text(old);
                     }
+                    layer.msg(data.msg);
                 }
             })
         });
@@ -316,7 +318,7 @@
             var index = $(data.elem).parents('tr').data('index');
             var rowData = table.cache['table'][index];
             rowData['status'] = data.elem.checked; // 更新缓存
-            if(rowData.status == true)
+            if(rowData.status === true)
                 rowData.status=1;
             else
                 rowData.status = 0;
@@ -333,16 +335,16 @@
                 contentType:"application/json",
                 type:"post",
                 success:function(data){
-                    if(data.code != 0){
+                    if(data.code === 200){
 
-                    }
+                    }layer.msg(data.msg);
                 }
             })
         });
 
         form.on('submit(confirm)', function (data) {
             delete data.field.file; // 删除file
-            if(data.field.status==undefined)
+            if(data.field.status===undefined)
                 data.field.status = "0";
             else
                 data.field.status="1";
@@ -357,10 +359,11 @@
                 contentType:"application/json",
                 type:"post",
                 success:function(data){
-                    if (data.code === 0) {
+                    if (data.code === 200) {
                         var tableData = table.cache['table'];
                         tableData.push(data.field);
                         table.reload('table', {data: tableData});
+                        layer.msg(res.msg);
                         layer.closeAll();
                     }
                 }
@@ -378,11 +381,13 @@
                 });
             },
             done: function (res) {
-                alert("上传成功...");
+                // alert("上传成功...");
+                layer.msg(res.msg);
                 $('#icon').attr('src', "/img/"+res.data.src); // 异步 + cdn
             },
             error:function(res){
-                alert("上传错误...");
+                layer.msg(res.msg);
+                // alert("上传错误...");
             }
         });
     });
