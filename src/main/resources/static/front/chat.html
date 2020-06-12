@@ -170,10 +170,11 @@
                     layer.msg(res.msg);
                 }
             });
+            Words.scrollTop = Words.scrollHeight;
         }
         updateMessage();
 
-        let intervalId=self.setInterval(updateMessage,1000);
+        let intervalId=self.setInterval(updateMessage,3000);
 
         $('.inner-cont2 a').each(function (i, item) {
             var url = window.location.pathname;
